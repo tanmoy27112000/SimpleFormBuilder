@@ -6,7 +6,7 @@ import 'package:formbuilder/src/models/checklistModel.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  ChecklistModel checklistModel = ChecklistModel.fromJson(sampleData);
+  static ChecklistModel checklistModel = ChecklistModel.fromJson(sampleData);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

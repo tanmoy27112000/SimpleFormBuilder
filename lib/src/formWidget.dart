@@ -24,7 +24,6 @@ class _FormBuilderState extends State<FormBuilder> {
   ChecklistController? checklistController;
   @override
   void initState() {
-    // TODO: implement initState
     checklistController =
         Provider.of<ChecklistController>(context, listen: false);
     checklistController!
