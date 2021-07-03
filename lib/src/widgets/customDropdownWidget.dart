@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formbuilder/global/constant.dart';
+import 'package:simple_form_builder/global/constant.dart';
 
 Row customDropdownWidget({
   BuildContext? context,

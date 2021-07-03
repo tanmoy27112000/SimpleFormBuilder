@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:formbuilder/src/controllers/checklistController.dart';
-import 'package:formbuilder/src/widgets/checkboxWidget.dart';
-import 'package:formbuilder/src/widgets/dateTimeWidget.dart';
-import 'package:formbuilder/src/widgets/dropdownWidget.dart';
-import 'package:formbuilder/src/widgets/radioWidget.dart';
-import 'package:formbuilder/src/widgets/textWidget.dart';
+
 import 'package:provider/provider.dart';
+import 'package:simple_form_builder/src/controllers/checklistController.dart';
+import 'package:simple_form_builder/src/widgets/checkboxWidget.dart';
+import 'package:simple_form_builder/src/widgets/dateTimeWidget.dart';
+import 'package:simple_form_builder/src/widgets/dropdownWidget.dart';
+import 'package:simple_form_builder/src/widgets/radioWidget.dart';
+import 'package:simple_form_builder/src/widgets/textWidget.dart';
 
 import 'models/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
-  final ChecklistModel initialData;
+  final Map<String, dynamic> initialData;
 
   FormBuilder({
     required this.initialData,
@@ -22,12 +23,13 @@ class FormBuilder extends StatefulWidget {
 
 class _FormBuilderState extends State<FormBuilder> {
   ChecklistController? checklistController;
+  ChecklistModel? checklistModel;
   @override
   void initState() {
     checklistController =
         Provider.of<ChecklistController>(context, listen: false);
-    checklistController!
-        .setCurrentQuestion(widget.initialData.data![0].questions);
+    checklistModel = ChecklistModel.fromJson(widget.initialData);
+    checklistController!.setCurrentQuestion(checklistModel!.data![0].questions);
     super.initState();
   }
 

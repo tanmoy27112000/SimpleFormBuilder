@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:formbuilder/global/constant.dart';
-import 'package:formbuilder/src/controllers/checklistController.dart';
-import 'package:formbuilder/src/models/checklistModel.dart';
-import 'package:formbuilder/src/widgets/remarkWidget.dart';
+import 'package:simple_form_builder/global/constant.dart';
+import 'package:simple_form_builder/src/controllers/checklistController.dart';
+import 'package:simple_form_builder/src/models/checklistModel.dart';
+import 'package:simple_form_builder/src/widgets/remarkWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'customDropdownWidget.dart';

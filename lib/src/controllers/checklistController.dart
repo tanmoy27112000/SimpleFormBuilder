@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formbuilder/src/models/checklistModel.dart';
+import 'package:simple_form_builder/src/models/checklistModel.dart';
 
 class ChecklistController extends ChangeNotifier {
   var authResponseModel;

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:formbuilder/formbuilder.dart';
-import 'package:formbuilder/global/constant.dart';
-import 'package:formbuilder/src/models/checklistModel.dart';
+import 'package:simple_form_builder/formbuilder.dart';
+import 'package:simple_form_builder/global/constant.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static ChecklistModel checklistModel = ChecklistModel.fromJson(sampleData);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            FormBuilder(initialData: checklistModel),
+            FormBuilder(initialData: sampleData),
           ],
         ),
       ),
