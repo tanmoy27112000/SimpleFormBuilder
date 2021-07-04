@@ -100,7 +100,7 @@ class Questions {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fields'] = this.fields;
+    data['fields'] = type == "text" ? "300" : this.fields.toString();
     data['_id'] = this.sId;
     data['title'] = this.title;
     data['description'] = this.description;
@@ -108,6 +108,8 @@ class Questions {
     data["remark_data"] = this.remarkData;
     data['type'] = this.type;
     data['is_mandatory'] = this.isMandatory;
+    data["answer"] = this.answer.toString();
+
     return data;
   }
 }

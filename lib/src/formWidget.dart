@@ -40,12 +40,13 @@ class _FormBuilderState extends State<FormBuilder> {
             SizedBox(
               height: 10,
             ),
-            ElevatedButton(
-              onPressed: () {
-                print(getCompleteData());
-                widget.onSubmit(getCompleteData());
-              },
-              child: Text("Submit"),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  widget.onSubmit(getCompleteData());
+                },
+                child: Text("Submit"),
+              ),
             ),
           ],
         ),
@@ -242,7 +243,7 @@ class _FormBuilderState extends State<FormBuilder> {
                             : dateFormater.format(e.answer),
                         // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
                         context: context,
-                        imagePath: "images/Date and Time.png",
+
                         showImage: true,
                         isRequired: false,
                         width: screenWidth(context: context, mulBy: 0.4),
@@ -350,11 +351,6 @@ class _FormBuilderState extends State<FormBuilder> {
                       child: Container(
                         height: 20,
                         width: 20,
-                        child: Image(
-                          image: AssetImage(
-                            "images/message.png",
-                          ),
-                        ),
                       ),
                     ),
                     Text("Enter remarks"),

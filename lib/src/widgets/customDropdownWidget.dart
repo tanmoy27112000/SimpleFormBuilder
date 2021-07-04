@@ -4,7 +4,6 @@ import 'package:simple_form_builder/global/constant.dart';
 Row customDropdownWidget({
   BuildContext? context,
   bool showImage = true,
-  String? imagePath,
   @required Function? onChanged,
   @required String? title,
   bool isRequired = true,
@@ -21,11 +20,6 @@ Row customDropdownWidget({
               child: Container(
                 height: 25,
                 width: 25,
-                child: Image(
-                  image: AssetImage(
-                    imagePath ?? "images/Reminder Title Icon@3x.png",
-                  ),
-                ),
               ),
             )
           : SizedBox.shrink(),
@@ -102,7 +96,7 @@ Row customDropdownWidget({
           onTap == null
               ? SizedBox.shrink()
               : InkWell(
-                  onTap: () => onTap,
+                  onTap: () => onTap(),
                   child: Container(
                     width: width ??
                         screenWidth(

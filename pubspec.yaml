@@ -1,6 +1,6 @@
 name: simple_form_builder
 description: A simple form builder for flutter
-version: 0.0.4
+version: 0.0.6
 homepage: http://www.tanmoykarmakar.in
 
 environment:
@@ -22,8 +22,8 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter: null
 # To add assets to your package, add an assets section, like this:
-assets:
-  - images/
+# assets:
+#   - images/
 #   - images/a_dot_ham.jpeg
 #
 # For details regarding assets in packages, see
