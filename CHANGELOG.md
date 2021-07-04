@@ -1,3 +1,3 @@
-## [0.0.1] - Release
+## [0.0.7] - Release
 
-* A simple form builder for flutter
+* Issues fixed
