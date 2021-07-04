@@ -23,6 +23,7 @@ class _FormBuilderState extends State<FormBuilder> {
   ChecklistModel? checklistModel;
   @override
   void initState() {
+    checklistModel = ChecklistModel.fromJson(widget.initialData);
     super.initState();
   }
 
