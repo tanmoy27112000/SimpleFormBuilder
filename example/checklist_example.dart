@@ -15,7 +15,13 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            FormBuilder(initialData: sampleData),
+            FormBuilder(
+              initialData: sampleData,
+              index: 0,
+              onSubmit: (val) {
+                print(val);
+              },
+            ),
           ],
         ),
       ),
