@@ -29,27 +29,25 @@ class _FormBuilderState extends State<FormBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...checklistModel!.data![widget.index].questions!
-                  .map((e) => questionWidget(e))
-                  .toList(),
-              SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  print(getCompleteData());
-                  widget.onSubmit(getCompleteData());
-                },
-                child: Text("Submit"),
-              ),
-            ],
-          ),
+    return Container(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ...checklistModel!.data![widget.index].questions!
+                .map((e) => questionWidget(e))
+                .toList(),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print(getCompleteData());
+                widget.onSubmit(getCompleteData());
+              },
+              child: Text("Submit"),
+            ),
+          ],
         ),
       ),
     );
