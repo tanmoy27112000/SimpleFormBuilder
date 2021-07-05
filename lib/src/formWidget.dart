@@ -79,7 +79,9 @@ class _FormBuilderState extends State<FormBuilder> {
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
                 children: [
-                  iconContainer(widget.multipleimage),
+                  widget.showIcon
+                      ? iconContainer(widget.multipleimage)
+                      : Container(),
                   Text(
                       "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
                 ],
@@ -122,7 +124,9 @@ class _FormBuilderState extends State<FormBuilder> {
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
                 children: [
-                  iconContainer(widget.dropdownImage),
+                  widget.showIcon
+                      ? iconContainer(widget.multipleimage)
+                      : Container(),
                   Text(
                       "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
                 ],
@@ -183,11 +187,17 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            iconContainer(widget.checkboxImage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.multipleimage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Column(
               children: e.fields!
@@ -225,11 +235,17 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            iconContainer(widget.dateImage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.multipleimage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
@@ -321,11 +337,17 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            iconContainer(widget.textImage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.multipleimage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
