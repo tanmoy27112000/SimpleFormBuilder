@@ -7,13 +7,13 @@ import 'models/checklistModel.dart';
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
   int index;
-  bool? remarks;
+  bool remarks;
   Function onSubmit;
 
   FormBuilder({
     required this.initialData,
     required this.index,
-    this.remarks,
+    this.remarks = false,
     required this.onSubmit,
   });
 
@@ -96,7 +96,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarks == null ? Container() : remarkWidget(e, remarks),
+            remarkWidget(e, remarks),
           ],
         );
 
@@ -156,7 +156,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarks == null ? Container() : remarkWidget(e, remarks),
+            remarkWidget(e, remarks),
           ],
         );
 
@@ -197,7 +197,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarks == null ? Container() : remarkWidget(e, remarks),
+            remarkWidget(e, remarks),
           ],
         );
 
@@ -292,7 +292,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarks == null ? Container() : remarkWidget(e, remarks),
+            remarkWidget(e, remarks),
           ],
         );
 
@@ -331,7 +331,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarks == null ? Container() : remarkWidget(e, remarks),
+            remarkWidget(e, remarks),
           ],
         );
 
@@ -348,11 +348,11 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
                   children: <Widget>[
-                    remarks == null
-                        ? Icon(Icons.settings)
-                        : SizedBox(
+                    remarks == false
+                        ? SizedBox(
                             width: 50,
-                          ),
+                          )
+                        : Icon(Icons.settings),
                     Text("Enter remarks"),
                   ],
                 ),
