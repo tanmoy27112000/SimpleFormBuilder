@@ -411,7 +411,7 @@ class _FormBuilderState extends State<FormBuilder> {
                         : image == null
                             ? Container()
                             : Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.symmetric(horizontal: 16),
                                 child: Image.asset(
                                   image,
                                   height: 20,
