@@ -78,6 +78,7 @@ class _FormBuilderState extends State<FormBuilder> {
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.multipleimage)
@@ -123,6 +124,7 @@ class _FormBuilderState extends State<FormBuilder> {
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.multipleimage)
@@ -190,6 +192,7 @@ class _FormBuilderState extends State<FormBuilder> {
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.multipleimage)
@@ -238,6 +241,7 @@ class _FormBuilderState extends State<FormBuilder> {
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.multipleimage)
@@ -340,6 +344,7 @@ class _FormBuilderState extends State<FormBuilder> {
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.multipleimage)
@@ -406,7 +411,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   children: <Widget>[
                     showIcon == false
                         ? SizedBox(
-                            width: 15,
+                            width: 16,
                           )
                         : image == null
                             ? Container()
