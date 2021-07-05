@@ -19,13 +19,13 @@ class FormBuilder extends StatefulWidget {
   FormBuilder({
     required this.initialData,
     required this.index,
-    this.multipleimage,
-    this.dropdownImage,
-    this.checkboxImage,
-    this.dateImage,
-    this.textImage,
-    this.remarkImage,
-    this.showIcon = false,
+    this.multipleimage, //adds  image for case 'multiple'
+    this.dropdownImage, //adds  image for case 'dropdown'
+    this.checkboxImage, //adds  image for case 'checkbox'
+    this.dateImage,     //adds  image for case 'date'
+    this.textImage,    //adds  image for case 'text'
+    this.remarkImage,   //adds image for remarks
+    this.showIcon = false,  //to enable or disable question icon
     required this.onSubmit,
   });
 
