@@ -78,7 +78,7 @@ class _FormBuilderState extends State<FormBuilder> {
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.multipleimage)
