@@ -114,11 +114,15 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            iconContainer(widget.dropdownImage),
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+            Row(
+              children: [
+                iconContainer(widget.dropdownImage),
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, top: 16),
+                  child: Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
