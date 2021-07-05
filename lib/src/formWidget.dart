@@ -6,6 +6,7 @@ import 'models/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
+  String? image;
   int index;
   bool remarkIcon;
   Function onSubmit;
@@ -13,6 +14,7 @@ class FormBuilder extends StatefulWidget {
   FormBuilder({
     required this.initialData,
     required this.index,
+    this.image,
     this.remarkIcon = false,
     required this.onSubmit,
   });
@@ -60,7 +62,10 @@ class _FormBuilderState extends State<FormBuilder> {
     return checklistModel!.toJson();
   }
 
-  Widget questionWidget(Questions e, remarks) {
+  Widget questionWidget(
+    Questions e,
+    remarks,
+  ) {
     switch (e.type) {
       case "multiple":
         return Column(
@@ -96,7 +101,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e, remarks),
+            remarkWidget(e, remarks, widget.image),
           ],
         );
 
@@ -156,7 +161,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e, remarks),
+            remarkWidget(e, remarks, widget.image),
           ],
         );
 
@@ -197,7 +202,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e, remarks),
+            remarkWidget(e, remarks, widget.image),
           ],
         );
 
@@ -292,7 +297,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e, remarks),
+            remarkWidget(e, remarks, widget.image),
           ],
         );
 
@@ -331,7 +336,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e, remarks),
+            remarkWidget(e, remarks, widget.image),
           ],
         );
 
@@ -340,7 +345,7 @@ class _FormBuilderState extends State<FormBuilder> {
     }
   }
 
-  Widget remarkWidget(Questions e, remarkIcon) {
+  Widget remarkWidget(Questions e, remarkIcon, image) {
     return e.remark
         ? Column(
             children: [
@@ -352,7 +357,10 @@ class _FormBuilderState extends State<FormBuilder> {
                         ? SizedBox(
                             width: 20,
                           )
-                        : Icon(Icons.settings),
+                        : Image.asset(
+                            image,
+                            height: 16,
+                          ),
                     Text("Enter remarks"),
                   ],
                 ),
