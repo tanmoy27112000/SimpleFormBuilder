@@ -357,9 +357,12 @@ class _FormBuilderState extends State<FormBuilder> {
                         ? SizedBox(
                             width: 20,
                           )
-                        : Image.asset(
-                            image,
-                            height: 20,
+                        : Container(
+                            padding: EdgeInsets.all(10),
+                            child: Image.asset(
+                              image,
+                              height: 20,
+                            ),
                           ),
                     Text("Enter remarks"),
                   ],
