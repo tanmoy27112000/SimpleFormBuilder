@@ -7,13 +7,13 @@ import 'models/checklistModel.dart';
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
   int index;
-  bool remarks;
+  bool remarkIcon;
   Function onSubmit;
 
   FormBuilder({
     required this.initialData,
     required this.index,
-    this.remarks = false,
+    this.remarkIcon = false,
     required this.onSubmit,
   });
 
@@ -37,7 +37,7 @@ class _FormBuilderState extends State<FormBuilder> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ...checklistModel!.data![widget.index].questions!
-                .map((e) => questionWidget(e, widget.remarks))
+                .map((e) => questionWidget(e, widget.remarkIcon))
                 .toList(),
             SizedBox(
               height: 10,
@@ -340,7 +340,7 @@ class _FormBuilderState extends State<FormBuilder> {
     }
   }
 
-  Widget remarkWidget(Questions e, remarks) {
+  Widget remarkWidget(Questions e, remarkIcon) {
     return e.remark
         ? Column(
             children: [
@@ -348,9 +348,9 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
                   children: <Widget>[
-                    remarks == false
+                    remarkIcon == false
                         ? SizedBox(
-                            width: 50,
+                            width: 20,
                           )
                         : Icon(Icons.settings),
                     Text("Enter remarks"),
