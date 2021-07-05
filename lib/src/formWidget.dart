@@ -125,7 +125,7 @@ class _FormBuilderState extends State<FormBuilder> {
               child: Row(
                 children: [
                   widget.showIcon
-                      ? iconContainer(widget.multipleimage)
+                      ? iconContainer(widget.dropdownImage)
                       : Container(),
                   Text(
                       "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
@@ -192,7 +192,7 @@ class _FormBuilderState extends State<FormBuilder> {
               child: Row(
                 children: [
                   widget.showIcon
-                      ? iconContainer(widget.multipleimage)
+                      ? iconContainer(widget.checkboxImage)
                       : Container(),
                   Text(
                       "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
@@ -240,7 +240,7 @@ class _FormBuilderState extends State<FormBuilder> {
               child: Row(
                 children: [
                   widget.showIcon
-                      ? iconContainer(widget.multipleimage)
+                      ? iconContainer(widget.dateImage)
                       : Container(),
                   Text(
                       "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
@@ -342,7 +342,7 @@ class _FormBuilderState extends State<FormBuilder> {
               child: Row(
                 children: [
                   widget.showIcon
-                      ? iconContainer(widget.multipleimage)
+                      ? iconContainer(widget.textImage)
                       : Container(),
                   Text(
                       "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
