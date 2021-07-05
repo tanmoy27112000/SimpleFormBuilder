@@ -75,11 +75,15 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            iconContainer(widget.multipleimage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  iconContainer(widget.multipleimage),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Column(
               children: e.fields!
@@ -114,15 +118,15 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: [
-                iconContainer(widget.dropdownImage),
-                Padding(
-                  padding: EdgeInsets.only(left: 16.0, top: 16),
-                  child: Text(
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, top: 16),
+              child: Row(
+                children: [
+                  iconContainer(widget.dropdownImage),
+                  Text(
                       "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
-                ),
-              ],
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
