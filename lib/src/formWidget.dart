@@ -7,13 +7,13 @@ import 'models/checklistModel.dart';
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
   int index;
-  bool remarks;
+  bool? remarks;
   Function onSubmit;
 
   FormBuilder({
     required this.initialData,
     required this.index,
-    required this.remarks,
+    this.remarks,
     required this.onSubmit,
   });
 
