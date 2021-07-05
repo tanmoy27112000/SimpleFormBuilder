@@ -96,7 +96,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e),
+            remarks ? remarkWidget(e) : Container(),
           ],
         );
 
@@ -156,7 +156,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            e.remark == true ? remarkWidget(e) : Container(),
+            remarks ? remarkWidget(e) : Container(),
           ],
         );
 
@@ -197,7 +197,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e),
+            remarks ? remarkWidget(e) : Container(),
           ],
         );
 
@@ -292,7 +292,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e),
+            remarks ? remarkWidget(e) : Container(),
           ],
         );
 
@@ -331,7 +331,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e),
+            remarks ? remarkWidget(e) : Container(),
           ],
         );
 
