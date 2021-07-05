@@ -6,7 +6,12 @@ import 'models/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
-  String? multipleimage, dropdownImage, dateImage, textImage, checkboxImage;
+  String? multipleimage,
+      dropdownImage,
+      dateImage,
+      textImage,
+      checkboxImage,
+      remarkImage;
   int index;
   bool showIcon;
   Function onSubmit;
@@ -19,6 +24,7 @@ class FormBuilder extends StatefulWidget {
     this.checkboxImage,
     this.dateImage,
     this.textImage,
+    this.remarkImage,
     this.showIcon = false,
     required this.onSubmit,
   });
@@ -112,7 +118,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e, remarks, widget.multipleimage),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -179,7 +185,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e, remarks, widget.dropdownImage),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -227,7 +233,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e, remarks, widget.checkboxImage),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -329,7 +335,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e, remarks, widget.dateImage),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -375,7 +381,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e, remarks, widget.textImage),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
