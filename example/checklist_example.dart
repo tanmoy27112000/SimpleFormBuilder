@@ -1,30 +1,30 @@
-import 'package:flutter/material.dart';
-import 'package:simple_form_builder/formbuilder.dart';
-import 'package:simple_form_builder/global/constant.dart';
+// import 'package:flutter/material.dart';
+// import 'package:simple_form_builder/formbuilder.dart';
+// import 'package:simple_form_builder/global/constant.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FormBuilder Example',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Material App Bar'),
-        ),
-        body: Column(
-          children: [
-            FormBuilder(
-              initialData: sampleData,
-              index: 0,
-              onSubmit: (val) {
-                print(val);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'FormBuilder Example',
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('Material App Bar'),
+//         ),
+//         body: Column(
+//           children: [
+//             FormBuilder(
+//               initialData: sampleData,
+//               index: 0,
+//               onSubmit: (val) {
+//                 print(val);
+//               },
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -244,7 +244,7 @@ class _FormBuilderState extends State<FormBuilder> {
                         // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
                         context: context,
 
-                        showImage: true,
+                        showImage: false,
                         isRequired: false,
                         width: screenWidth(context: context, mulBy: 0.4),
                       ),
@@ -346,13 +346,6 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
                     Text("Enter remarks"),
                   ],
                 ),
