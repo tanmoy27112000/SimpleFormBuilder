@@ -7,11 +7,13 @@ import 'models/checklistModel.dart';
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
   int index;
+  bool remarks;
   Function onSubmit;
 
   FormBuilder({
     required this.initialData,
     required this.index,
+    required this.remarks,
     required this.onSubmit,
   });
 
@@ -35,7 +37,7 @@ class _FormBuilderState extends State<FormBuilder> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ...checklistModel!.data![widget.index].questions!
-                .map((e) => questionWidget(e))
+                .map((e) => questionWidget(e, widget.remarks))
                 .toList(),
             SizedBox(
               height: 10,
@@ -58,7 +60,7 @@ class _FormBuilderState extends State<FormBuilder> {
     return checklistModel!.toJson();
   }
 
-  Widget questionWidget(Questions e) {
+  Widget questionWidget(Questions e, remarks) {
     switch (e.type) {
       case "multiple":
         return Column(
@@ -154,7 +156,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e),
+            e.remark == true ? remarkWidget(e) : Container(),
           ],
         );
 
