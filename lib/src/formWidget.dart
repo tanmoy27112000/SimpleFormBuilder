@@ -7,7 +7,7 @@ import 'models/checklistModel.dart';
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
   int index;
-  bool? remarks = false;
+  bool? remarks;
   Function onSubmit;
 
   FormBuilder({
@@ -96,7 +96,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarks ? remarkWidget(e) : Container(),
+            remarks == null ? Container() : remarkWidget(e),
           ],
         );
 
@@ -156,7 +156,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarks ? remarkWidget(e) : Container(),
+            remarks == null ? Container() : remarkWidget(e),
           ],
         );
 
@@ -197,7 +197,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarks ? remarkWidget(e) : Container(),
+            remarks == null ? Container() : remarkWidget(e),
           ],
         );
 
@@ -292,7 +292,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarks ? remarkWidget(e) : Container(),
+            remarks == null ? Container() : remarkWidget(e),
           ],
         );
 
@@ -331,7 +331,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarks ? remarkWidget(e) : Container(),
+            remarks == null ? Container() : remarkWidget(e),
           ],
         );
 
