@@ -96,7 +96,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarks == null ? Container() : remarkWidget(e),
+            remarks == null ? Container() : remarkWidget(e, remarks),
           ],
         );
 
@@ -156,7 +156,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarks == null ? Container() : remarkWidget(e),
+            remarks == null ? Container() : remarkWidget(e, remarks),
           ],
         );
 
@@ -197,7 +197,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarks == null ? Container() : remarkWidget(e),
+            remarks == null ? Container() : remarkWidget(e, remarks),
           ],
         );
 
@@ -292,7 +292,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarks == null ? Container() : remarkWidget(e),
+            remarks == null ? Container() : remarkWidget(e, remarks),
           ],
         );
 
@@ -331,7 +331,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarks == null ? Container() : remarkWidget(e),
+            remarks == null ? Container() : remarkWidget(e, remarks),
           ],
         );
 
@@ -340,7 +340,7 @@ class _FormBuilderState extends State<FormBuilder> {
     }
   }
 
-  Widget remarkWidget(Questions e) {
+  Widget remarkWidget(Questions e, remarks) {
     return e.remark
         ? Column(
             children: [
@@ -348,6 +348,11 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
                   children: <Widget>[
+                    remarks == null
+                        ? Icon(Icons.settings)
+                        : SizedBox(
+                            width: 50,
+                          ),
                     Text("Enter remarks"),
                   ],
                 ),
