@@ -6,16 +6,20 @@ import 'models/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
-  String? image;
+  String? multipleimage, dropdownImage, dateImage, textImage, checkboxImage;
   int index;
-  bool remarkIcon;
+  bool showIcon;
   Function onSubmit;
 
   FormBuilder({
     required this.initialData,
     required this.index,
-    this.image,
-    this.remarkIcon = false,
+    this.multipleimage,
+    this.dropdownImage,
+    this.checkboxImage,
+    this.dateImage,
+    this.textImage,
+    this.showIcon = false,
     required this.onSubmit,
   });
 
@@ -39,7 +43,7 @@ class _FormBuilderState extends State<FormBuilder> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ...checklistModel!.data![widget.index].questions!
-                .map((e) => questionWidget(e, widget.remarkIcon))
+                .map((e) => questionWidget(e, widget.showIcon))
                 .toList(),
             SizedBox(
               height: 10,
@@ -71,6 +75,7 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            iconContainer(widget.multipleimage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Text(
@@ -101,7 +106,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e, remarks, widget.image),
+            remarkWidget(e, remarks, widget.multipleimage),
           ],
         );
 
@@ -109,6 +114,7 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            iconContainer(widget.dropdownImage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Text(
@@ -161,7 +167,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e, remarks, widget.image),
+            remarkWidget(e, remarks, widget.dropdownImage),
           ],
         );
 
@@ -169,6 +175,7 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            iconContainer(widget.checkboxImage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Text(
@@ -202,7 +209,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e, remarks, widget.image),
+            remarkWidget(e, remarks, widget.checkboxImage),
           ],
         );
 
@@ -210,6 +217,7 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            iconContainer(widget.dateImage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Text(
@@ -297,7 +305,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e, remarks, widget.image),
+            remarkWidget(e, remarks, widget.dateImage),
           ],
         );
 
@@ -305,6 +313,7 @@ class _FormBuilderState extends State<FormBuilder> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            iconContainer(widget.textImage),
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
               child: Text(
@@ -336,7 +345,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e, remarks, widget.image),
+            remarkWidget(e, remarks, widget.textImage),
           ],
         );
 
@@ -345,7 +354,19 @@ class _FormBuilderState extends State<FormBuilder> {
     }
   }
 
-  Widget remarkWidget(Questions e, remarkIcon, image) {
+  Widget iconContainer(image) {
+    return image == null
+        ? Container()
+        : Container(
+            padding: EdgeInsets.all(10),
+            child: Image.asset(
+              image,
+              height: 20,
+            ),
+          );
+  }
+
+  Widget remarkWidget(Questions e, showIcon, image) {
     return e.remark
         ? Column(
             children: [
@@ -353,17 +374,19 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
                   children: <Widget>[
-                    remarkIcon == false
+                    showIcon == false
                         ? SizedBox(
-                            width: 20,
+                            width: 15,
                           )
-                        : Container(
-                            padding: EdgeInsets.all(10),
-                            child: Image.asset(
-                              image,
-                              height: 20,
-                            ),
-                          ),
+                        : image == null
+                            ? Container()
+                            : Container(
+                                padding: EdgeInsets.all(10),
+                                child: Image.asset(
+                                  image,
+                                  height: 20,
+                                ),
+                              ),
                     Text("Enter remarks"),
                   ],
                 ),
