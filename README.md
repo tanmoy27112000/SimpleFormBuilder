@@ -1,14 +1,15 @@
-# formbuilder
+# Simple Form Builder
 
-A new Flutter package project.
+A complete form builder for all your needs 
 
-## Getting Started
+Website: [https://tanmoykarmakar.in](https://tanmoykarmakar.in)
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+### Specs
+<!-- [![pub](https://img.shields.io/pub/v/flash.svg?style=flat)](https://pub.dev/packages/flash) -->
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+
+This library allows you to create a complete form from a json file with
+multiple types of fields `text` , `checkbox`, `multiselect` , `date and time` , and `file upload`.
+This package also provides additional remark options.
+
+It has been written **100% in Dart**. ❤️
