@@ -359,7 +359,7 @@ class _FormBuilderState extends State<FormBuilder> {
                           )
                         : Image.asset(
                             image,
-                            height: 16,
+                            height: 20,
                           ),
                     Text("Enter remarks"),
                   ],
