@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
-  simple_form_builder: ^0.0.7
+  simple_form_builder: ^0.0.9
 
 dev_dependencies:
   flutter_test:

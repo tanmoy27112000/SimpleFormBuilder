@@ -6,12 +6,26 @@ import 'models/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
+  String? multipleimage,
+      dropdownImage,
+      dateImage,
+      textImage,
+      checkboxImage,
+      remarkImage;
   int index;
+  bool showIcon;
   Function onSubmit;
 
   FormBuilder({
     required this.initialData,
     required this.index,
+    this.multipleimage, //adds  image for case 'multiple'
+    this.dropdownImage, //adds  image for case 'dropdown'
+    this.checkboxImage, //adds  image for case 'checkbox'
+    this.dateImage, //adds  image for case 'date'
+    this.textImage, //adds  image for case 'text'
+    this.remarkImage, //adds image for remarks
+    this.showIcon = false, //to enable or disable question icon
     required this.onSubmit,
   });
 
@@ -35,7 +49,7 @@ class _FormBuilderState extends State<FormBuilder> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ...checklistModel!.data![widget.index].questions!
-                .map((e) => questionWidget(e))
+                .map((e) => questionWidget(e, widget.showIcon))
                 .toList(),
             SizedBox(
               height: 10,
@@ -58,7 +72,10 @@ class _FormBuilderState extends State<FormBuilder> {
     return checklistModel!.toJson();
   }
 
-  Widget questionWidget(Questions e) {
+  Widget questionWidget(
+    Questions e,
+    remarks,
+  ) {
     switch (e.type) {
       case "multiple":
         return Column(
@@ -66,8 +83,15 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.multipleimage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Column(
               children: e.fields!
@@ -94,7 +118,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -104,8 +128,15 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.dropdownImage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -154,7 +185,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -164,8 +195,15 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.checkboxImage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Column(
               children: e.fields!
@@ -195,7 +233,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                   .toList(),
             ),
-            remarkWidget(e),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -205,8 +243,15 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.dateImage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
@@ -290,7 +335,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -300,8 +345,15 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                  "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+              child: Row(
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.textImage)
+                      : Container(),
+                  Text(
+                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -329,7 +381,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e),
+            remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
 
@@ -338,7 +390,19 @@ class _FormBuilderState extends State<FormBuilder> {
     }
   }
 
-  Widget remarkWidget(Questions e) {
+  Widget iconContainer(image) {
+    return image == null
+        ? Container()
+        : Container(
+            padding: EdgeInsets.all(10),
+            child: Image.asset(
+              image,
+              height: 20,
+            ),
+          );
+  }
+
+  Widget remarkWidget(Questions e, showIcon, image) {
     return e.remark
         ? Column(
             children: [
@@ -346,6 +410,21 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
                   children: <Widget>[
+                    showIcon == false
+                        ? SizedBox(
+                            width: 16,
+                          )
+                        : image == null
+                            ? Container(
+                                padding: EdgeInsets.only(left: 16),
+                              )
+                            : Container(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                child: Image.asset(
+                                  image,
+                                  height: 20,
+                                ),
+                              ),
                     Text("Enter remarks"),
                   ],
                 ),

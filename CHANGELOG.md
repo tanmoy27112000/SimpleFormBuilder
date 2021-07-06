@@ -1,3 +1,8 @@
+## [0.0.10] - Release
+
+* question icons added
+
+
 ## [0.0.8] - Release
 
 * added example
