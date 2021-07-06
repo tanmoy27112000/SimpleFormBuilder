@@ -19,6 +19,7 @@ class FormBuilder extends StatefulWidget {
   Function onSubmit;
   double? submitButtonWidth;
   BoxDecoration? submitButtonDecoration;
+  TextStyle? submitTextDecoration;
 
   FormBuilder({
     required this.initialData,
@@ -35,6 +36,7 @@ class FormBuilder extends StatefulWidget {
     required this.onSubmit,
     this.submitButtonDecoration,
     this.submitButtonWidth = 0.5,
+    this.submitTextDecoration,
   });
 
   @override
@@ -62,14 +64,6 @@ class _FormBuilderState extends State<FormBuilder> {
             SizedBox(
               height: 10,
             ),
-            // Center(
-            //   child: ElevatedButton(
-            //     onPressed: () {
-            //       widget.onSubmit(getCompleteData());
-            //     },
-            //     child: Text("Submit"),
-            //   ),
-            // ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -89,7 +83,11 @@ class _FormBuilderState extends State<FormBuilder> {
                           color: Colors.blue,
                         ),
                     child: Center(
-                      child: Text("Submit"),
+                      child: Text(
+                        "Submit",
+                        style: widget.submitTextDecoration ??
+                            TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
