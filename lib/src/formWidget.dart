@@ -72,8 +72,10 @@ class _FormBuilderState extends State<FormBuilder> {
             // ),
             Container(
               height: 50,
-              width: widget.submitButtonWidth ??
-                  screenWidth(context: context, mulBy: 0.5),
+              width: screenWidth(
+                context: context,
+                mulBy: widget.submitButtonWidth ?? 0.5,
+              ),
               decoration: widget.submitButtonDecoration ??
                   BoxDecoration(
                     borderRadius: BorderRadius.circular(5),

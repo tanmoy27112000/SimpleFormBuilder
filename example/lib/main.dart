@@ -19,6 +19,8 @@ class MyApp extends StatelessWidget {
               FormBuilder(
                 initialData: sampleData,
                 index: 0,
+                submitButtonWidth: 0.8,
+                // submitButtonDecoration: BoxDecoration(color: Color),
                 showIcon: false,
                 onSubmit: (val) {
                   print(val);
