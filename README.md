@@ -5,7 +5,8 @@
 
 A complete form builder for all your needs 
 
-Website: [https://tanmoykarmakar.in](https://tanmoykarmakar.in)
+Maintainer : [Tanmoy Karmakar](https://tanmoykarmakar.in)<br>
+contributor: [Shayon Sarkar](https://github.com/shayongytworkz)<br>
 
 ### Specs
 <!-- [![pub](https://img.shields.io/pub/v/flash.svg?style=flat)](https://pub.dev/packages/flash) -->
