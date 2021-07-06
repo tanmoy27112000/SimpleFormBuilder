@@ -3,7 +3,6 @@ description: A simple form builder that lets you create a complete form from a s
 version: 0.0.11
 homepage: https://www.tanmoykarmakar.in
 repository: https://github.com/tanmoy27112000/SimpleFormBuilder
-publish_to: "https://www.tanmoykarmakar.in"
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
