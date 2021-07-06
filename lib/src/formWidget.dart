@@ -6,6 +6,7 @@ import 'models/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
+  InputDecoration? textfieldDecoration;
   String? multipleimage,
       dropdownImage,
       dateImage,
@@ -19,13 +20,14 @@ class FormBuilder extends StatefulWidget {
   FormBuilder({
     required this.initialData,
     required this.index,
+    this.textfieldDecoration,
     this.multipleimage, //adds  image for case 'multiple'
     this.dropdownImage, //adds  image for case 'dropdown'
     this.checkboxImage, //adds  image for case 'checkbox'
-    this.dateImage,     //adds  image for case 'date'
-    this.textImage,    //adds  image for case 'text'
-    this.remarkImage,   //adds image for remarks
-    this.showIcon = false,  //to enable or disable question icon
+    this.dateImage, //adds  image for case 'date'
+    this.textImage, //adds  image for case 'text'
+    this.remarkImage, //adds image for remarks
+    this.showIcon = false, //to enable or disable question icon
     required this.onSubmit,
   });
 
@@ -372,12 +374,14 @@ class _FormBuilderState extends State<FormBuilder> {
                   style: TextStyle(
                     color: Colors.black,
                   ),
-                  decoration: InputDecoration(
-                    hintText: "Enter text here",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
+                  decoration: widget.textfieldDecoration == null
+                      ? InputDecoration(
+                          hintText: "Enter text here",
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        )
+                      : widget.textfieldDecoration,
                 ),
               ),
             ),
