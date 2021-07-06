@@ -73,7 +73,7 @@ class _FormBuilderState extends State<FormBuilder> {
   }
 
   getCompleteData() {
-    return checklistModel!.toJson();
+    return checklistModel;
   }
 
   Widget questionWidget(
