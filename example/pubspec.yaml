@@ -24,7 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
-  simple_form_builder: ^0.0.9
+  simple_form_builder:
+    git:
+      url: https://github.com/tanmoy27112000/SimpleFormBuilder
+      ref: dev
 
 dev_dependencies:
   flutter_test:

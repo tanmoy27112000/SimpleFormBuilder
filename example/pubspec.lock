@@ -98,10 +98,12 @@ packages:
   simple_form_builder:
     dependency: "direct main"
     description:
-      name: simple_form_builder
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.9"
+      path: "."
+      ref: dev
+      resolved-ref: fa096f370bf1df50cbb66fc8861d23f6b8333c75
+      url: "https://github.com/tanmoy27112000/SimpleFormBuilder"
+    source: git
+    version: "0.0.11"
   sky_engine:
     dependency: transitive
     description: flutter

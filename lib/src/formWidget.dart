@@ -17,6 +17,8 @@ class FormBuilder extends StatefulWidget {
   double? textFieldWidth;
   bool showIcon;
   Function onSubmit;
+  double? submitButtonWidth;
+  BoxDecoration? submitButtonDecoration;
 
   FormBuilder({
     required this.initialData,
@@ -31,6 +33,8 @@ class FormBuilder extends StatefulWidget {
     this.remarkImage, //adds image for remarks
     this.showIcon = false, //to enable or disable question icon
     required this.onSubmit,
+    this.submitButtonDecoration,
+    this.submitButtonWidth = 0.5,
   });
 
   @override
@@ -58,14 +62,27 @@ class _FormBuilderState extends State<FormBuilder> {
             SizedBox(
               height: 10,
             ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  widget.onSubmit(getCompleteData());
-                },
+            // Center(
+            //   child: ElevatedButton(
+            //     onPressed: () {
+            //       widget.onSubmit(getCompleteData());
+            //     },
+            //     child: Text("Submit"),
+            //   ),
+            // ),
+            Container(
+              height: 50,
+              width: widget.submitButtonWidth ??
+                  screenWidth(context: context, mulBy: 0.5),
+              decoration: widget.submitButtonDecoration ??
+                  BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.blue,
+                  ),
+              child: Center(
                 child: Text("Submit"),
               ),
-            ),
+            )
           ],
         ),
       ),

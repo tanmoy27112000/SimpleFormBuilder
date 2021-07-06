@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
               FormBuilder(
                 initialData: sampleData,
                 index: 0,
-                // showPrefix
-                //radioIcon
-                //checklistIcon
+                showIcon: false,
                 onSubmit: (val) {
                   print(val);
                 },
