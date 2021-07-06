@@ -70,19 +70,24 @@ class _FormBuilderState extends State<FormBuilder> {
             //     child: Text("Submit"),
             //   ),
             // ),
-            Container(
-              height: 50,
-              width: screenWidth(
-                context: context,
-                mulBy: widget.submitButtonWidth ?? 0.5,
-              ),
-              decoration: widget.submitButtonDecoration ??
-                  BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.blue,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 50,
+                  width: screenWidth(
+                    context: context,
+                    mulBy: widget.submitButtonWidth ?? 0.5,
                   ),
-              child: Center(
-                child: Text("Submit"),
+                  decoration: widget.submitButtonDecoration ??
+                      BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.blue,
+                      ),
+                  child: Center(
+                    child: Text("Submit"),
+                  ),
+                ),
               ),
             )
           ],

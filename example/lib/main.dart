@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
                 initialData: sampleData,
                 index: 0,
                 submitButtonWidth: 0.8,
-                // submitButtonDecoration: BoxDecoration(color: Color),
+                submitButtonDecoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 showIcon: false,
                 onSubmit: (val) {
                   print(val);
