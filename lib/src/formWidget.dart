@@ -14,13 +14,15 @@ class FormBuilder extends StatefulWidget {
       checkboxImage,
       remarkImage;
   int index;
+  double? textFieldWidth;
   bool showIcon;
   Function onSubmit;
 
   FormBuilder({
     required this.initialData,
     required this.index,
-    this.textfieldDecoration,
+    this.textfieldDecoration, //adds inputdecoration to textfields
+    this.textFieldWidth, //to change the width of textField
     this.multipleimage, //adds  image for case 'multiple'
     this.dropdownImage, //adds  image for case 'dropdown'
     this.checkboxImage, //adds  image for case 'checkbox'
@@ -363,7 +365,11 @@ class _FormBuilderState extends State<FormBuilder> {
                 horizontal: 24,
               ),
               child: Container(
-                width: screenWidth(context: context, mulBy: 0.7),
+                width: screenWidth(
+                    context: context,
+                    mulBy: widget.textFieldWidth == null
+                        ? 0.7
+                        : widget.textFieldWidth),
                 child: TextField(
                   onChanged: (value) {
                     // e.answer = value;
