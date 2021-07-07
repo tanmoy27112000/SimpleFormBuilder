@@ -8,6 +8,7 @@ import '../global/checklistModel.dart';
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
   InputDecoration? textfieldDecoration;
+  String onUpload;
   String? multipleimage,
       dropdownImage,
       dateImage,
@@ -22,6 +23,7 @@ class FormBuilder extends StatefulWidget {
   FormBuilder({
     required this.initialData,
     required this.index,
+    required this.onUpload,
     this.textfieldDecoration, //adds inputdecoration to textfields
     this.textFieldWidth, //to change the width of textField
     this.multipleimage, //adds  image for case 'multiple'
@@ -387,10 +389,14 @@ class _FormBuilderState extends State<FormBuilder> {
                   ),
                   InkWell(
                     onTap: () async {
-                      var file = await selectFile();
-                      if (file != null) {
-                        e.answer = file.files.first.name;
-                      }
+                      String url = widget.onUpload;
+                      setState(() {
+                        e.answer = url;
+                      });
+                      // var file = await selectFile();
+                      // if (file != null) {
+                      //   e.answer = file.files.first.name;
+                      // }
                       // String? file = await selectFile(myType.authResponseModel);
                       // if (file != null) {
                       //   checklistModel.setAnswer(
