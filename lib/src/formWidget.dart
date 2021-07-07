@@ -8,7 +8,7 @@ import '../global/checklistModel.dart';
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
   InputDecoration? textfieldDecoration;
-  String onUpload;
+  Future<String> onUpload;
   String? multipleimage,
       dropdownImage,
       dateImage,
@@ -389,7 +389,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   ),
                   InkWell(
                     onTap: () async {
-                      String url = widget.onUpload;
+                      Future<String> url = widget.onUpload;
                       setState(() {
                         e.answer = url;
                       });
