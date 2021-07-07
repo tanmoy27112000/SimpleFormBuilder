@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
@@ -19,6 +18,9 @@ class FormBuilder extends StatefulWidget {
   double? textFieldWidth;
   bool showIcon;
   Function onSubmit;
+  double? submitButtonWidth;
+  BoxDecoration? submitButtonDecoration;
+  TextStyle? submitTextDecoration;
 
   FormBuilder({
     required this.initialData,
@@ -34,6 +36,9 @@ class FormBuilder extends StatefulWidget {
     this.remarkImage, //adds image for remarks
     this.showIcon = false, //to enable or disable question icon
     required this.onSubmit,
+    this.submitButtonDecoration,
+    this.submitButtonWidth = 0.5,
+    this.submitTextDecoration,
   });
 
   @override
@@ -62,13 +67,34 @@ class _FormBuilderState extends State<FormBuilder> {
               height: 10,
             ),
             Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  widget.onSubmit(getCompleteData());
-                },
-                child: Text("Submit"),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    widget.onSubmit(getCompleteData());
+                  },
+                  child: Container(
+                    height: 50,
+                    width: screenWidth(
+                      context: context,
+                      mulBy: widget.submitButtonWidth ?? 0.5,
+                    ),
+                    decoration: widget.submitButtonDecoration ??
+                        BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.blue,
+                        ),
+                    child: Center(
+                      child: Text(
+                        "Submit",
+                        style: widget.submitTextDecoration ??
+                            TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -393,17 +419,6 @@ class _FormBuilderState extends State<FormBuilder> {
                       setState(() {
                         e.answer = url;
                       });
-                      // var file = await selectFile();
-                      // if (file != null) {
-                      //   e.answer = file.files.first.name;
-                      // }
-                      // String? file = await selectFile(myType.authResponseModel);
-                      // if (file != null) {
-                      //   checklistModel.setAnswer(
-                      //     file,
-                      //     myType.currentQuestions.indexOf(e),
-                      //   );
-                      // }
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5.0),
