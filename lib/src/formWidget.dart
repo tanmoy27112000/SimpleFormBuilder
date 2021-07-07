@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
 import '../global/checklistModel.dart';
-import 'package:file_picker/file_picker.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
@@ -388,12 +387,9 @@ class _FormBuilderState extends State<FormBuilder> {
                   ),
                   InkWell(
                     onTap: () async {
-                      FilePickerResult? result =
-                          await FilePicker.platform.pickFiles();
-
-                      if (result != null) {
-                        String fileName = result.files.first.name;
-                        e.answer = File(fileName);
+                      var file = await selectFile();
+                      if (file != null) {
+                        e.answer = file.files.first.name;
                       }
                       // String? file = await selectFile(myType.authResponseModel);
                       // if (file != null) {
