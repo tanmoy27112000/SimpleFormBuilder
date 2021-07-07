@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
 
 DateFormat dateFormater = new DateFormat('dd-MM-yyyy');
 
@@ -19,6 +20,11 @@ selectDate(BuildContext context) async {
     lastDate: DateTime(2025),
   );
   if (picked != null) return picked;
+}
+
+selectFile() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles();
+  return result;
 }
 
 selectTime(BuildContext context) async {
