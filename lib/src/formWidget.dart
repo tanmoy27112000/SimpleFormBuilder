@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
-
 import '../global/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
@@ -335,6 +334,75 @@ class _FormBuilderState extends State<FormBuilder> {
                     showImage: false,
                     isRequired: false,
                     width: screenWidth(context: context, mulBy: 0.3),
+                  ),
+                ],
+              ),
+            ),
+            remarkWidget(e, remarks, widget.remarkImage),
+          ],
+        );
+
+      case "file":
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, top: 16),
+              child: Text(
+                "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}",
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        Container(
+                          height: 70,
+                          width: 100,
+                          child: Icon(
+                            Icons.add_a_photo_outlined,
+                            color: Colors.grey[500],
+                            size: 70,
+                          ),
+                        ),
+                        e.answer != null
+                            ? CircleAvatar(
+                                backgroundColor: Colors.green,
+                                radius: 15,
+                                child: Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      // String? file = await selectFile(myType.authResponseModel);
+                      // if (file != null) {
+                      //   checklistModel.setAnswer(
+                      //     file,
+                      //     myType.currentQuestions.indexOf(e),
+                      //   );
+                      // }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        "Upload",
+                        style: TextStyle(
+                          color: Colors.black,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
