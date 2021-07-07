@@ -121,5 +121,6 @@ There are several options that allow for more control:
 | `index` | If the data contains mutiple forms passing the index of the form will show the question of that perticular form |
 | `onSubmit` | This function will take in the map value and pass it to the given function when submit button is pressed |
 | `showPrefix` | This toggle will enable or disable prefix icon before the question |
+| `onUpload` | This contains the file uploaded by user in String |
 
 <br>
