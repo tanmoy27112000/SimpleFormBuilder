@@ -23,7 +23,7 @@ class FormBuilder extends StatefulWidget {
   FormBuilder({
     required this.initialData,
     required this.index,
-    required this.onUpload,
+    required this.onUpload, //variable to add the uploaded file
     this.textfieldDecoration, //adds inputdecoration to textfields
     this.textFieldWidth, //to change the width of textField
     this.multipleimage, //adds  image for case 'multiple'
