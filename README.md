@@ -1,6 +1,6 @@
 # Simple Form Builder
 [![pub package](https://img.shields.io/pub/v/simple_form_builder.svg)](https://pub.dev/packages/simple_form_builder)
-[![GitHub Stars](https://img.shields.io/github/stars/tanmoy27112000/simple_form_builder.svg?logo=github)](https://pub.dev/packages/simple_form_builder)
+[![GitHub Stars](https://img.shields.io/github/stars/tanmoy27112000/SimpleFormBuilder.svg?logo=github)](https://pub.dev/packages/simple_form_builder)
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20IOS%20%7C%20Web-green)](https://img.shields.io/badge/Platform-Android%20%7C%20IOS%20%7C%20Web-green)
 
 A complete form builder for all your needs 
@@ -121,5 +121,6 @@ There are several options that allow for more control:
 | `index` | If the data contains mutiple forms passing the index of the form will show the question of that perticular form |
 | `onSubmit` | This function will take in the map value and pass it to the given function when submit button is pressed |
 | `showPrefix` | This toggle will enable or disable prefix icon before the question |
+| `onUpload` | This contains the file uploaded by user in String |
 
 <br>
