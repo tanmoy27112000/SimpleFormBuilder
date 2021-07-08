@@ -1,6 +1,6 @@
 # Simple Form Builder
 [![pub package](https://img.shields.io/pub/v/simple_form_builder.svg)](https://pub.dev/packages/simple_form_builder)
-[![GitHub Stars](https://img.shields.io/github/stars/tanmoy27112000/simple_form_builder.svg?logo=github)](https://pub.dev/packages/simple_form_builder)
+[![GitHub Stars](https://img.shields.io/github/stars/tanmoy27112000/SimpleFormBuilder.svg?logo=github)](https://pub.dev/packages/simple_form_builder)
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20IOS%20%7C%20Web-green)](https://img.shields.io/badge/Platform-Android%20%7C%20IOS%20%7C%20Web-green)
 
 A complete form builder for all your needs 
