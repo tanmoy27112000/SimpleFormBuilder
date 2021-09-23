@@ -14,13 +14,13 @@ class FormBuilder extends StatefulWidget {
       textImage,
       checkboxImage,
       remarkImage;
-  int index;
-  double? textFieldWidth;
-  bool showIcon;
-  Function onSubmit;
-  double? submitButtonWidth;
-  BoxDecoration? submitButtonDecoration;
-  TextStyle? submitTextDecoration;
+  final int index;
+  final double? textFieldWidth;
+  final bool showIcon;
+  final Function onSubmit;
+  final double? submitButtonWidth;
+  final BoxDecoration? submitButtonDecoration;
+  final TextStyle? submitTextDecoration;
 
   FormBuilder({
     required this.initialData,
@@ -71,7 +71,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    widget.onSubmit(getCompleteData());
+                    widget.onSubmit(getCompleteData(widget.index));
                   },
                   child: Container(
                     height: 50,
@@ -101,18 +101,16 @@ class _FormBuilderState extends State<FormBuilder> {
     );
   }
 
-  getCompleteData() {
-    for (Data data in checklistModel!.data!) {
-      List<Questions>? questions = data.questions;
-      for (Questions item in questions!) {
-        if (item.answer == null && item.isMandatory == true) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("${item.title} is mandatory"),
-            ),
-          );
-          break;
-        }
+  getCompleteData(int index) {
+    List<Questions>? questions = checklistModel!.data![index].questions;
+    for (Questions item in questions!) {
+      if (item.answer == null && item.isMandatory == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("${item.title} is mandatory"),
+          ),
+        );
+        break;
       }
     }
     return checklistModel;
