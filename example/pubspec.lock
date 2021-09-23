@@ -98,12 +98,10 @@ packages:
   simple_form_builder:
     dependency: "direct main"
     description:
-      path: "."
-      ref: dev
-      resolved-ref: dabd1e1446fbaef37c38286cde3a75a96b3ba9b8
-      url: "https://github.com/tanmoy27112000/SimpleFormBuilder"
-    source: git
-    version: "0.0.11"
+      path: "/Users/tanmoykarmakar/Documents/flutter apps/flutter packages/formbuilder"
+      relative: false
+    source: path
+    version: "0.0.13"
   sky_engine:
     dependency: transitive
     description: flutter

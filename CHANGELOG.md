@@ -15,3 +15,7 @@
 ## [0.0.7] - Release
 
 * Issues fixed
+
+## [0.0.13] - Release
+
+* added validation

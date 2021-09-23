@@ -1,14 +1,14 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
+
 import '../global/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
-  InputDecoration? textfieldDecoration;
-  String onUpload;
-  String? multipleimage,
+  final InputDecoration? textfieldDecoration;
+  final String onUpload;
+  final String? multipleimage,
       dropdownImage,
       dateImage,
       textImage,
@@ -102,6 +102,19 @@ class _FormBuilderState extends State<FormBuilder> {
   }
 
   getCompleteData() {
+    for (Data data in checklistModel!.data!) {
+      List<Questions>? questions = data.questions;
+      for (Questions item in questions!) {
+        if (item.answer == null && item.isMandatory == true) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("${item.title} is mandatory"),
+            ),
+          );
+          break;
+        }
+      }
+    }
     return checklistModel;
   }
 
@@ -475,14 +488,13 @@ class _FormBuilderState extends State<FormBuilder> {
                   style: TextStyle(
                     color: Colors.black,
                   ),
-                  decoration: widget.textfieldDecoration == null
-                      ? InputDecoration(
-                          hintText: "Enter text here",
-                          hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal,
-                          ),
-                        )
-                      : widget.textfieldDecoration,
+                  decoration: widget.textfieldDecoration ??
+                      InputDecoration(
+                        hintText: "Enter text here",
+                        hintStyle: TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
                 ),
               ),
             ),
