@@ -6,22 +6,22 @@ import '../global/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
-  InputDecoration? textfieldDecoration;
 
-  String onUpload;
-  String? multipleimage,
+  final InputDecoration? textfieldDecoration;
+  final String onUpload;
+  final String? multipleimage,
       dropdownImage,
       dateImage,
       textImage,
       checkboxImage,
       remarkImage;
-  int index;
-  double? textFieldWidth;
-  bool showIcon;
-  Function onSubmit;
-  double? submitButtonWidth;
-  BoxDecoration? submitButtonDecoration;
-  TextStyle? submitTextDecoration;
+  final int index;
+  final double? textFieldWidth;
+  final bool showIcon;
+  final Function onSubmit;
+  final double? submitButtonWidth;
+  final BoxDecoration? submitButtonDecoration;
+  final TextStyle? submitTextDecoration;
 
   FormBuilder({
     required this.initialData,
@@ -72,7 +72,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    widget.onSubmit(getCompleteData());
+                    widget.onSubmit(getCompleteData(widget.index));
                   },
                   child: Container(
                     height: 50,
@@ -102,7 +102,18 @@ class _FormBuilderState extends State<FormBuilder> {
     );
   }
 
-  getCompleteData() {
+  getCompleteData(int index) {
+    List<Questions>? questions = checklistModel!.data![index].questions;
+    for (Questions item in questions!) {
+      if (item.answer == null && item.isMandatory == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("${item.title} is mandatory"),
+          ),
+        );
+        break;
+      }
+    }
     return checklistModel;
   }
 
@@ -476,14 +487,13 @@ class _FormBuilderState extends State<FormBuilder> {
                   style: TextStyle(
                     color: Colors.black,
                   ),
-                  decoration: widget.textfieldDecoration == null
-                      ? InputDecoration(
-                          hintText: "Enter text here",
-                          hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal,
-                          ),
-                        )
-                      : widget.textfieldDecoration,
+                  decoration: widget.textfieldDecoration ??
+                      InputDecoration(
+                        hintText: "Enter text here",
+                        hintStyle: TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
                 ),
               ),
             ),
