@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/formbuilder.dart';
+import 'package:simple_form_builder/global/checklistModel.dart';
 import 'package:simple_form_builder/global/constant.dart';
 
 void main() => runApp(MyApp());
@@ -26,8 +29,13 @@ class MyApp extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 showIcon: false,
-                onSubmit: (val) {
-                  print(val);
+                onSubmit: (ChecklistModel val) {
+                  if (val == null) {
+                    print("no data");
+                  } else {
+                    var json = jsonEncode(val.toJson());
+                    print(json);
+                  }
                 },
               ),
             ],

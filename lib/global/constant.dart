@@ -49,7 +49,7 @@ Map<String, dynamic> sampleData = {
           "description": "please select one option given below",
           "remark": true,
           "type": "multiple",
-          "is_mandatory": true
+          "is_mandatory": false
         },
         {
           "question_id": "60e0a77c10926d0f006834a1",
@@ -109,7 +109,7 @@ Map<String, dynamic> sampleData = {
           "description": "",
           "type": "text",
           "remark": false,
-          "is_mandatory": true
+          "is_mandatory": false
         }
       ]
     },

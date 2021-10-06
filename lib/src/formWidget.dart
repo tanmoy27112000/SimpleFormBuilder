@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
+
 import '../global/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
@@ -103,6 +103,7 @@ class _FormBuilderState extends State<FormBuilder> {
   }
 
   getCompleteData(int index) {
+    int f = 0;
     List<Questions>? questions = checklistModel!.data![index].questions;
     for (Questions item in questions!) {
       if (item.answer == null && item.isMandatory == true) {
@@ -111,10 +112,11 @@ class _FormBuilderState extends State<FormBuilder> {
             content: Text("${item.title} is mandatory"),
           ),
         );
+        f = 1;
         break;
       }
     }
-    return checklistModel;
+    return f == 0 ? checklistModel : null;
   }
 
   Widget questionWidget(

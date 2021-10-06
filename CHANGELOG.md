@@ -19,3 +19,7 @@
 ## [0.0.13] - Release
 
 * added validation
+
+## [0.0.14] - Release
+
+* updated the example code
