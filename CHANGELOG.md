@@ -23,3 +23,7 @@
 ## [0.0.14] - Release
 
 * updated the example code
+
+## [0.0.15] - Release
+
+* added date and time field and minor changes
