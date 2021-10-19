@@ -31,7 +31,7 @@ It has been written **100% in Dart**. ❤️
 Add the following to your `pubspec.yaml` file:
 ```yaml
 dependencies:
-  simple_form_builder: ^0.0.14
+  simple_form_builder: ^0.0.16
 ```
 
 <br>

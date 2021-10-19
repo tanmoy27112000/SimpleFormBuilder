@@ -71,29 +71,26 @@ class _FormBuilderState extends State<FormBuilder> {
               height: 10,
             ),
             Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: () {
-                    widget.onSubmit(getCompleteData(widget.index));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: screenWidth(
-                      context: context,
-                      mulBy: widget.submitButtonWidth ?? 0.5,
-                    ),
-                    decoration: widget.submitButtonDecoration ??
-                        BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.blue,
-                        ),
-                    child: Center(
-                      child: Text(
-                        "Submit",
-                        style: widget.submitTextDecoration ??
-                            TextStyle(color: Colors.white),
+              child: InkWell(
+                onTap: () {
+                  widget.onSubmit(getCompleteData(widget.index));
+                },
+                child: Container(
+                  height: 50,
+                  width: screenWidth(
+                    context: context,
+                    mulBy: widget.submitButtonWidth ?? 0.5,
+                  ),
+                  decoration: widget.submitButtonDecoration ??
+                      BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.blue,
                       ),
+                  child: Center(
+                    child: Text(
+                      "Submit",
+                      style: widget.submitTextDecoration ??
+                          TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
