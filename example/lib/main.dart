@@ -24,10 +24,9 @@ class MyApp extends StatelessWidget {
                 index: 0,
                 onUpload: fileUpload(),
                 showIndex: false,
-                submitButtonWidth: 0.5,
+                submitButtonWidth: 1,
                 submitButtonDecoration: BoxDecoration(
                   color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
                 ),
                 showIcon: false,
                 onSubmit: (ChecklistModel val) {
