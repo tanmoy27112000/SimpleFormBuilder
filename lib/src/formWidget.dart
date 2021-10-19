@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
+import 'package:simple_form_builder/src/widgets/descriptionWidget.dart';
 
 import '../global/checklistModel.dart';
 
@@ -9,6 +10,7 @@ class FormBuilder extends StatefulWidget {
 
   final InputDecoration? textfieldDecoration;
   final String onUpload;
+  final bool showIndex;
   final String? multipleimage,
       dropdownImage,
       dateImage,
@@ -37,6 +39,7 @@ class FormBuilder extends StatefulWidget {
     this.remarkImage, //adds image for remarks
     this.showIcon = false, //to enable or disable question icon
     required this.onSubmit,
+    this.showIndex = true,
     this.submitButtonDecoration,
     this.submitButtonWidth = 0.5,
     this.submitTextDecoration,
@@ -130,13 +133,18 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.multipleimage)
                       : Container(),
-                  Text(
-                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                  descriptionWidget(e, context),
                 ],
               ),
             ),
@@ -175,13 +183,18 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.dropdownImage)
                       : Container(),
-                  Text(
-                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                  descriptionWidget(e, context),
                 ],
               ),
             ),
@@ -191,10 +204,10 @@ class _FormBuilderState extends State<FormBuilder> {
                 horizontal: 24,
               ),
               child: Container(
-                width: screenWidth(context: context, mulBy: 0.5),
+                width: screenWidth(context: context, mulBy: 0.9),
                 height: 50,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5),
                   border: Border.all(
                     color: e.answer != null ? Colors.blue : Colors.grey,
                   ),
@@ -204,7 +217,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   child: DropdownButton(
                     underline: SizedBox(),
                     hint: e.answer == null
-                        ? Text('Filter by')
+                        ? Text('Select option')
                         : Text(
                             e.answer,
                             style: TextStyle(
@@ -242,13 +255,18 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.checkboxImage)
                       : Container(),
-                  Text(
-                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                  descriptionWidget(e, context),
                 ],
               ),
             ),
@@ -284,19 +302,24 @@ class _FormBuilderState extends State<FormBuilder> {
           ],
         );
 
-      case "date":
+      case "datetime":
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.dateImage)
                       : Container(),
-                  Text(
-                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                  descriptionWidget(e, context),
                 ],
               ),
             ),
@@ -385,16 +408,162 @@ class _FormBuilderState extends State<FormBuilder> {
             remarkWidget(e, remarks, widget.remarkImage),
           ],
         );
-
-      case "file":
+      case "time":
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Text(
-                "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}",
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.dateImage)
+                      : Container(),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                  descriptionWidget(e, context),
+                ],
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Row(
+                children: <Widget>[
+                  customDropdownWidget(
+                    onChanged: (val) {},
+                    onTap: () async {
+                      TimeOfDay tempTime = await selectTime(context);
+
+                      if (e.answer == null) {
+                        setState(() {
+                          e.answer = DateTime(
+                            DateTime.now().year,
+                            DateTime.now().month,
+                            DateTime.now().day,
+                            tempTime.hour,
+                            tempTime.minute,
+                          );
+                        });
+                      } else {
+                        setState(() {
+                          e.answer = DateTime(
+                            e.answer.year,
+                            e.answer.month,
+                            e.answer.day,
+                            tempTime.hour,
+                            tempTime.minute,
+                          );
+                        });
+                      }
+
+                      // reminderController.updateIschanged(true);
+                    },
+                    title: e.answer != null
+                        ? formatTimeOfDay(TimeOfDay.fromDateTime(e.answer))
+                        : "Hr:Mins",
+                    context: context,
+                    showImage: false,
+                    isRequired: false,
+                    width: screenWidth(context: context, mulBy: 0.3),
+                  ),
+                ],
+              ),
+            ),
+            remarkWidget(e, remarks, widget.remarkImage),
+          ],
+        );
+
+      case "date":
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, top: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  widget.showIcon
+                      ? iconContainer(widget.dateImage)
+                      : Container(),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                  descriptionWidget(e, context),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Row(
+                children: <Widget>[
+                  Theme(
+                    data: ThemeData(),
+                    child: Builder(
+                      builder: (context) => customDropdownWidget(
+                        onChanged: (val) {
+                          print(val);
+                        },
+                        onTap: () async {
+                          DateTime tempDate = await selectDate(context);
+
+                          if (e.answer == null) {
+                            setState(() {
+                              e.answer = tempDate;
+                            });
+                          } else {
+                            setState(() {
+                              e.answer = DateTime(
+                                tempDate.year,
+                                tempDate.month,
+                                tempDate.day,
+                                e.answer.hour,
+                                e.answer.minute,
+                              );
+                            });
+                          }
+                        },
+                        title: e.answer == null
+                            ? "DD-MM-YYYY"
+                            : dateFormater.format(e.answer),
+                        // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
+                        context: context,
+
+                        showImage: false,
+                        isRequired: false,
+                        width: screenWidth(context: context, mulBy: 0.4),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            remarkWidget(e, remarks, widget.remarkImage),
+          ],
+        );
+
+      case "file":
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, top: 16),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                ),
+                descriptionWidget(e, context),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -458,44 +627,58 @@ class _FormBuilderState extends State<FormBuilder> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   widget.showIcon
                       ? iconContainer(widget.textImage)
                       : Container(),
-                  Text(
-                      "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. ${e.title}"),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Text(
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                  ),
+                  descriptionWidget(e, context),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 8.0,
-                horizontal: 24,
+                horizontal: 16,
               ),
               child: Container(
                 width: screenWidth(
                     context: context,
                     mulBy: widget.textFieldWidth == null
-                        ? 0.7
+                        ? 0.9
                         : widget.textFieldWidth),
-                child: TextField(
-                  onChanged: (value) {
-                    // e.answer = value;
-                    setState(() {
-                      e.answer = value;
-                    });
-                  },
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  decoration: widget.textfieldDecoration ??
-                      InputDecoration(
-                        hintText: "Enter text here",
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.normal,
-                        ),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextField(
+                      maxLines: e.maxline,
+                      onChanged: (value) {
+                        // e.answer = value;
+                        setState(() {
+                          e.answer = value;
+                        });
+                      },
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
+                      decoration: widget.textfieldDecoration ??
+                          InputDecoration.collapsed(
+                            hintText: "Enter text here",
+                            hintStyle: TextStyle(
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -552,19 +735,26 @@ class _FormBuilderState extends State<FormBuilder> {
                     const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
                 child: Column(
                   children: [
-                    TextField(
-                      onChanged: (value) {
-                        e.remarkData = value;
-                        setState(() {});
-                      },
-                      decoration: InputDecoration.collapsed(
-                        hintText: "Enter your remarks",
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.normal,
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: TextField(
+                          onChanged: (value) {
+                            e.remarkData = value;
+                            setState(() {});
+                          },
+                          decoration: InputDecoration.collapsed(
+                            hintText: "Enter your remarks",
+                            hintStyle: TextStyle(
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Divider(),
                   ],
                 ),
               ),

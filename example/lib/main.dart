@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
                 initialData: sampleData,
                 index: 0,
                 onUpload: fileUpload(),
+                showIndex: false,
                 submitButtonWidth: 0.5,
                 submitButtonDecoration: BoxDecoration(
                   color: Colors.blue,
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  String fileUpload() {
-    return "string";
+  fileUpload() {
+    return "";
   }
 }

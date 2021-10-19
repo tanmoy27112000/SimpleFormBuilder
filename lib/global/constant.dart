@@ -88,7 +88,27 @@ Map<String, dynamic> sampleData = {
           "title": "Please provide the date of vehicle registration?",
           "description": "",
           "remark": false,
+          "type": "datetime",
+          "is_mandatory": true
+        },
+        {
+          "question_id": "60e0a77c10926d0f006834a3",
+          "fields": [],
+          "_id": "60dc6a3dc9fe14577c30d274",
+          "title": "Please provide the date of vehicle registration?",
+          "description": "this is description",
+          "remark": false,
           "type": "date",
+          "is_mandatory": true
+        },
+        {
+          "question_id": "60e0a77c10926d0f006834a3",
+          "fields": [],
+          "_id": "60dc6a3dc9fe14577c30d274",
+          "title": "Please provide the date of vehicle registration?",
+          "description": "",
+          "remark": false,
+          "type": "time",
           "is_mandatory": true
         },
         {
@@ -108,6 +128,7 @@ Map<String, dynamic> sampleData = {
           "title": "Write about vehicle condition",
           "description": "",
           "type": "text",
+          "maxline": 4,
           "remark": false,
           "is_mandatory": false
         }

@@ -72,6 +72,7 @@ class Questions {
   bool remark = false;
   String? remarkData;
   String? type;
+  int? maxline;
   bool? isMandatory;
   var answer;
 
@@ -82,6 +83,7 @@ class Questions {
     this.description,
     required this.remark,
     this.type,
+    this.maxline,
     this.isMandatory,
   });
 
@@ -92,6 +94,7 @@ class Questions {
     description = json['description'];
     remark = json['remark'];
     type = json['type'];
+    maxline = json["maxline"] ?? 1;
     isMandatory = json['is_mandatory'];
     if (type == "checkbox") {
       answer = List.generate(fields!.length, (index) => false);
@@ -108,6 +111,7 @@ class Questions {
     data["remark_data"] = this.remarkData;
     data['type'] = this.type;
     data['is_mandatory'] = this.isMandatory;
+    data["maxline"] = this.maxline;
     data["answer"] = this.answer.toString();
 
     return data;
