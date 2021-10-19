@@ -13,7 +13,7 @@ contributor: [Shayon Sarkar](https://github.com/shayongytworkz)<br>
 
 
 This library allows you to create a complete form from a json file with
-multiple types of fields `text` , `checkbox`, `multiselect` , `date and time` , and `file upload`.
+multiple types of fields `text` , `checkbox`, `multiselect` , `datetime` , `date` , `time` , and `file upload`.
 This package also provides additional remark options.
 
 It has been written **100% in Dart**. ❤️
@@ -95,6 +95,7 @@ class MyApp extends StatelessWidget {
               FormBuilder(
                 initialData: sampleData,
                 index: 0,
+                showIndex:true,
                 // showPrefix
                 //radioIcon
                 //checklistIcon
@@ -122,5 +123,6 @@ There are several options that allow for more control:
 | `onSubmit` | This function will take in the map value and pass it to the given function when submit button is pressed |
 | `showPrefix` | This toggle will enable or disable prefix icon before the question |
 | `onUpload` | This contains the file uploaded by user in String |
+| `showIndex` | to specify weather to show numbering or not |
 
 <br>
