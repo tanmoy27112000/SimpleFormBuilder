@@ -21,6 +21,13 @@ class MyApp extends StatelessWidget {
             children: [
               FormBuilder(
                 initialData: sampleData,
+                title: "Form title",
+                titleStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+                description: "description",
+                widgetCrossAxisAlignment: CrossAxisAlignment.center,
                 index: 0,
                 onUpload: fileUpload(),
                 showIndex: false,

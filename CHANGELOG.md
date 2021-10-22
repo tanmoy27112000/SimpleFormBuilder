@@ -27,3 +27,11 @@
 ## [0.0.15] - Release
 
 * added date and time field and minor changes
+## [0.0.16] - Release
+
+* normal fixes
+
+## [0.0.17] - Release
+
+* added title and desciption parameters
+

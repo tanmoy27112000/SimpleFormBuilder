@@ -10,6 +10,11 @@ class FormBuilder extends StatefulWidget {
 
   final InputDecoration? textfieldDecoration;
   final String onUpload;
+  final String? title;
+  final TextStyle? titleStyle;
+  final CrossAxisAlignment widgetCrossAxisAlignment;
+  final String? description;
+  final TextStyle? descriptionStyle;
   final bool showIndex;
   final String? multipleimage,
       dropdownImage,
@@ -43,6 +48,11 @@ class FormBuilder extends StatefulWidget {
     this.submitButtonDecoration,
     this.submitButtonWidth = 0.5,
     this.submitTextDecoration,
+    this.title,
+    this.description,
+    this.descriptionStyle,
+    this.titleStyle,
+    this.widgetCrossAxisAlignment = CrossAxisAlignment.start,
   });
 
   @override
@@ -62,8 +72,23 @@ class _FormBuilderState extends State<FormBuilder> {
     return Container(
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: widget.widgetCrossAxisAlignment,
           children: [
+            widget.title != null
+                ? Text(
+                    widget.title!,
+                    style: widget.titleStyle ?? TextStyle(),
+                  )
+                : SizedBox.shrink(),
+            widget.description != null
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.description!,
+                      style: widget.descriptionStyle ?? TextStyle(),
+                    ),
+                  )
+                : SizedBox.shrink(),
             ...checklistModel!.data![widget.index].questions!
                 .map((e) => questionWidget(e, widget.showIcon))
                 .toList(),
