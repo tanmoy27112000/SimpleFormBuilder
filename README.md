@@ -19,9 +19,9 @@ This package also provides additional remark options.
 It has been written **100% in Dart**. ❤️
 
 <p>
-  <img width="205px" alt="Example" src="https://i.imgur.com/01MxxtD.png"/>
-  <img width="205px" alt="Example App Closed" src="https://i.imgur.com/VuJ4ajm.png"/>
-  <img width="205px" alt="Example App Open" src="https://i.imgur.com/BRnU1fH.png" />
+  <img width="205px" alt="Example" src="https://i.imgur.com/vvvcJny.png"/>
+  <img width="205px" alt="Example App Closed" src="https://i.imgur.com/5UewKqS.png"/>
+  <img width="205px" alt="Example App Open" src="https://i.imgur.com/dNGIkxJ.png" />
 </p>
 
 
@@ -31,7 +31,7 @@ It has been written **100% in Dart**. ❤️
 Add the following to your `pubspec.yaml` file:
 ```yaml
 dependencies:
-  simple_form_builder: ^0.0.16
+  simple_form_builder: ^0.0.18
 ```
 
 <br>

@@ -35,3 +35,7 @@
 
 * added title and desciption parameters
 
+## [0.0.18] - Release
+
+* added submit button text variable
+

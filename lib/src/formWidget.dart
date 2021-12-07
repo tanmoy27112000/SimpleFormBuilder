@@ -21,7 +21,8 @@ class FormBuilder extends StatefulWidget {
       dateImage,
       textImage,
       checkboxImage,
-      remarkImage;
+      remarkImage,
+      submitButtonText;
   final int index;
   final double? textFieldWidth;
   final bool showIcon;
@@ -42,6 +43,7 @@ class FormBuilder extends StatefulWidget {
     this.dateImage, //adds  image for case 'date'
     this.textImage, //adds  image for case 'text'
     this.remarkImage, //adds image for remarks
+    this.submitButtonText,
     this.showIcon = false, //to enable or disable question icon
     required this.onSubmit,
     this.showIndex = true,
@@ -113,7 +115,7 @@ class _FormBuilderState extends State<FormBuilder> {
                       ),
                   child: Center(
                     child: Text(
-                      "Submit",
+                      widget.submitButtonText ?? "Submit",
                       style: widget.submitTextDecoration ??
                           TextStyle(color: Colors.white),
                     ),
