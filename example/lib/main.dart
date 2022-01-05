@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
                 index: 0,
                 onUpload: fileUpload(),
                 showIndex: false,
+                descriptionTextDecoration: TextStyle(color: Colors.red),
                 submitButtonWidth: 1,
                 submitButtonDecoration: BoxDecoration(
                   color: Colors.blue,

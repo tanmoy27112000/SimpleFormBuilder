@@ -39,3 +39,7 @@
 
 * added submit button text variable
 
+## [0.0.19] - Release
+
+* added title and description text style
+

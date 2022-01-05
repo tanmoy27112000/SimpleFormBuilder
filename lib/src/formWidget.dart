@@ -30,6 +30,8 @@ class FormBuilder extends StatefulWidget {
   final double? submitButtonWidth;
   final BoxDecoration? submitButtonDecoration;
   final TextStyle? submitTextDecoration;
+  final TextStyle? titleTextDecoration;
+  final TextStyle? descriptionTextDecoration;
 
   FormBuilder({
     required this.initialData,
@@ -55,6 +57,8 @@ class FormBuilder extends StatefulWidget {
     this.descriptionStyle,
     this.titleStyle,
     this.widgetCrossAxisAlignment = CrossAxisAlignment.start,
+    this.titleTextDecoration,
+    this.descriptionTextDecoration,
   });
 
   @override
@@ -166,9 +170,12 @@ class _FormBuilderState extends State<FormBuilder> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                      "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}",
+                      style: widget.titleTextDecoration ?? TextStyle(),
+                    ),
                   ),
-                  descriptionWidget(e, context),
+                  descriptionWidget(
+                      e, context, widget.descriptionTextDecoration),
                 ],
               ),
             ),
@@ -218,7 +225,8 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(e, context),
+                  descriptionWidget(
+                      e, context, widget.descriptionTextDecoration),
                 ],
               ),
             ),
@@ -290,7 +298,8 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(e, context),
+                  descriptionWidget(
+                      e, context, widget.descriptionTextDecoration),
                 ],
               ),
             ),
@@ -343,7 +352,8 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(e, context),
+                  descriptionWidget(
+                      e, context, widget.descriptionTextDecoration),
                 ],
               ),
             ),
@@ -449,7 +459,8 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(e, context),
+                  descriptionWidget(
+                      e, context, widget.descriptionTextDecoration),
                 ],
               ),
             ),
@@ -518,7 +529,8 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(e, context),
+                  descriptionWidget(
+                      e, context, widget.descriptionTextDecoration),
                 ],
               ),
             ),
@@ -586,7 +598,7 @@ class _FormBuilderState extends State<FormBuilder> {
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
                 ),
-                descriptionWidget(e, context),
+                descriptionWidget(e, context, widget.descriptionTextDecoration),
               ],
             ),
             Padding(
@@ -662,7 +674,8 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(e, context),
+                  descriptionWidget(
+                      e, context, widget.descriptionTextDecoration),
                 ],
               ),
             ),
