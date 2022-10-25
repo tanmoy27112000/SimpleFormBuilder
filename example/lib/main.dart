@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
                 description: "description",
                 widgetCrossAxisAlignment: CrossAxisAlignment.center,
                 index: 0,
-                onUpload: fileUpload(),
+                onUpload: fileUpload,
                 showIndex: false,
                 descriptionTextDecoration: TextStyle(color: Colors.red),
                 submitButtonWidth: 1,
@@ -53,7 +53,17 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  fileUpload() {
-    return "";
+  void fileUpload(ValueChanged<String> callback) async {
+    /// Select File image the camera and Encode it to the base64Encode then
+    /// pass it to the callback and package will handle by itself.
+
+    // final picker = ImagePicker();
+    // // Pick an image
+    // final image = await picker.pickImage(source: ImageSource.camera);
+    // if (image != null) {
+    //   final imageBytes = await image.readAsBytes();
+    //   final base64File = base64Encode(imageBytes);
+    //   callback.call(base64File);
+    // }
   }
 }
