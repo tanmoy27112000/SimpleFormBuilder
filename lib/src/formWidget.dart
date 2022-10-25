@@ -9,7 +9,7 @@ class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
 
   final InputDecoration? textfieldDecoration;
-  final String onUpload;
+  final void Function(ValueChanged<String>)? onUpload;
   final String? title;
   final TextStyle? titleStyle;
   final CrossAxisAlignment widgetCrossAxisAlignment;
@@ -36,7 +36,7 @@ class FormBuilder extends StatefulWidget {
   FormBuilder({
     required this.initialData,
     required this.index,
-    required this.onUpload, //variable to add the uploaded file
+    this.onUpload, //variable to add the uploaded file
     this.textfieldDecoration, //adds inputdecoration to textfields
     this.textFieldWidth, //to change the width of textField
     this.multipleimage, //adds  image for case 'multiple'
@@ -632,24 +632,19 @@ class _FormBuilderState extends State<FormBuilder> {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () async {
-                      String url = widget.onUpload;
-                      setState(() {
-                        e.answer = url;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
-                      child: Text(
-                        "Upload",
-                        style: TextStyle(
-                          color: Colors.black,
-                          decoration: TextDecoration.underline,
-                        ),
+                  TextButton(
+                    onPressed: widget.onUpload != null
+                        ? () => widget.onUpload!(
+                            (value) => setState(() => e.answer = value))
+                        : () {},
+                    child: Text(
+                      "Upload",
+                      style: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
