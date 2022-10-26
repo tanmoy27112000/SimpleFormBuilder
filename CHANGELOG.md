@@ -42,4 +42,6 @@
 ## [0.0.19] - Release
 
 * added title and description text style
+## [0.0.20] - Release
 
+* added static size

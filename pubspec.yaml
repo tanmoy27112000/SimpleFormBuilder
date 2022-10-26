@@ -1,7 +1,7 @@
 name: simple_form_builder
 description: A simple form builder that lets you create a complete form from a
   simple JSON data.
-version: 0.0.19
+version: 0.0.20
 homepage: https://www.tanmoykarmakar.in
 repository: https://github.com/tanmoy27112000/SimpleFormBuilder
 

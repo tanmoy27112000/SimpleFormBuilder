@@ -108,7 +108,7 @@ packages:
       path: "/Users/tanmoykarmakar/Documents/flutter apps/SimpleFormBuilder"
       relative: false
     source: path
-    version: "0.0.19"
+    version: "0.0.20"
   sky_engine:
     dependency: transitive
     description: flutter
