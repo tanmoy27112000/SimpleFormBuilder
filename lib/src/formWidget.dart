@@ -189,13 +189,9 @@ class _FormBuilderState extends State<FormBuilder> {
                       title: Text(
                         val,
                         style: TextStyle(
-                          color: e.answer != val ? Colors.grey : Colors.black,
-                          fontWeight: FontWeight.normal,
-                          fontSize: screenWidth(
-                            context: context,
-                            mulBy: 0.04,
-                          ),
-                        ),
+                            color: e.answer != val ? Colors.grey : Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15),
                       ),
                       onChanged: (value) {
                         e.answer = value;
@@ -313,15 +309,11 @@ class _FormBuilderState extends State<FormBuilder> {
                       title: Text(
                         val,
                         style: TextStyle(
-                          color: e.answer[e.fields!.indexOf(val)] != true
-                              ? Colors.grey
-                              : Colors.black,
-                          fontWeight: FontWeight.normal,
-                          fontSize: screenWidth(
-                            context: context,
-                            mulBy: 0.04,
-                          ),
-                        ),
+                            color: e.answer[e.fields!.indexOf(val)] != true
+                                ? Colors.grey
+                                : Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15),
                       ),
                       value: e.answer[e.fields!.indexOf(val)],
                       onChanged: (value) {
