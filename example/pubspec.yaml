@@ -25,8 +25,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.0
   simple_form_builder:
-    path: /Users/tanmoykarmakar/Documents/flutter apps/SimpleFormBuilder 
-
+    path: ../
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter

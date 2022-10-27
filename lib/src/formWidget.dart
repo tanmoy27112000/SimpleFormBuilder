@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
@@ -9,7 +12,6 @@ class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
 
   final InputDecoration? textfieldDecoration;
-  final String onUpload;
   final String? title;
   final TextStyle? titleStyle;
   final CrossAxisAlignment widgetCrossAxisAlignment;
@@ -36,7 +38,6 @@ class FormBuilder extends StatefulWidget {
   FormBuilder({
     required this.initialData,
     required this.index,
-    required this.onUpload, //variable to add the uploaded file
     this.textfieldDecoration, //adds inputdecoration to textfields
     this.textFieldWidth, //to change the width of textField
     this.multipleimage, //adds  image for case 'multiple'
@@ -624,24 +625,17 @@ class _FormBuilderState extends State<FormBuilder> {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () async {
-                      String url = widget.onUpload;
-                      setState(() {
-                        e.answer = url;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
-                      child: Text(
-                        "Upload",
-                        style: TextStyle(
-                          color: Colors.black,
-                          decoration: TextDecoration.underline,
-                        ),
+                  TextButton(
+                    onPressed: () =>
+                        fileUpload((files) => setState(() => e.answer = files)),
+                    child: Text(
+                      "Upload",
+                      style: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -790,5 +784,16 @@ class _FormBuilderState extends State<FormBuilder> {
             ],
           )
         : SizedBox.shrink();
+  }
+
+  void fileUpload(Function(dynamic) files) async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
+
+    if (result != null) {
+      List<File> selectedFiles =
+          result.paths.map((path) => File(path ?? '')).toList();
+      files.call(selectedFiles);
+    }
   }
 }
