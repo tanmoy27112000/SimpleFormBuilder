@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
 import 'package:simple_form_builder/src/widgets/descriptionWidget.dart';
