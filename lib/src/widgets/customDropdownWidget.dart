@@ -56,7 +56,7 @@ Row customDropdownWidget({
                       style: TextStyle(
                         color:
                             onTap != null ? Colors.grey[800] : Colors.grey[700],
-                        fontSize: screenWidth(context: context, mulBy: 0.04),
+                        fontSize: 15,
                       ),
                     ),
                   ],

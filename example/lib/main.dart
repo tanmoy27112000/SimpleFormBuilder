@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
                 description: "description",
                 widgetCrossAxisAlignment: CrossAxisAlignment.center,
                 index: 0,
-                onUpload: fileUpload(),
                 showIndex: false,
                 descriptionTextDecoration: TextStyle(color: Colors.red),
                 submitButtonWidth: 1,
@@ -51,9 +50,5 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  fileUpload() {
-    return "";
   }
 }
