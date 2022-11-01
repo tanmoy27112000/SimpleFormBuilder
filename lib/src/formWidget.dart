@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
 import 'package:simple_form_builder/src/widgets/descriptionWidget.dart';
@@ -787,13 +788,41 @@ class _FormBuilderState extends State<FormBuilder> {
   }
 
   void fileUpload(Function(dynamic) files) async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: const Text('Pick from Gallery'),
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles(allowMultiple: true);
 
-    if (result != null) {
-      List<File> selectedFiles =
-          result.paths.map((path) => File(path ?? '')).toList();
-      files.call(selectedFiles);
-    }
+                  if (result != null) {
+                    List<File> selectedFiles =
+                        result.paths.map((path) => File(path ?? '')).toList();
+                    files.call(selectedFiles);
+                  }
+                },
+              ),
+              ListTile(
+                title: const Text('Pick from Camera'),
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  // Pick an image
+                  final image =
+                      await ImagePicker().pickImage(source: ImageSource.camera);
+                  if (image != null) {
+                    List<File> selectedFiles = [File(image.path)];
+                    files.call(selectedFiles);
+                  }
+                },
+              )
+            ],
+          );
+        });
   }
 }
