@@ -1,15 +1,16 @@
+import 'package:flutter/material.dart';
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:simple_form_builder/global/constant.dart';
-import 'package:simple_form_builder/src/widgets/customDropdownWidget.dart';
-import 'package:simple_form_builder/src/widgets/descriptionWidget.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/custom_dropdown.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/descriptionWidget.dart';
 
-import '../global/checklistModel.dart';
+import '../../../../global/checklistModel.dart';
 
-class FormBuilder extends StatefulWidget {
+class FormBuilderView extends StatefulWidget {
   final Map<String, dynamic> initialData;
 
   final InputDecoration? textfieldDecoration;
@@ -36,7 +37,7 @@ class FormBuilder extends StatefulWidget {
   final TextStyle? titleTextDecoration;
   final TextStyle? descriptionTextDecoration;
 
-  FormBuilder({
+  const FormBuilderView({
     required this.initialData,
     required this.index,
     this.textfieldDecoration, //adds inputdecoration to textfields
@@ -67,8 +68,9 @@ class FormBuilder extends StatefulWidget {
   _FormBuilderState createState() => _FormBuilderState();
 }
 
-class _FormBuilderState extends State<FormBuilder> {
+class _FormBuilderState extends State<FormBuilderView> {
   ChecklistModel? checklistModel;
+
   @override
   void initState() {
     checklistModel = ChecklistModel.fromJson(widget.initialData);
@@ -358,7 +360,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   Theme(
                     data: ThemeData(),
                     child: Builder(
-                      builder: (context) => customDropdownWidget(
+                      builder: (context) => CustomDropdown(
                         onChanged: (val) {
                           print(val);
                         },
@@ -385,15 +387,13 @@ class _FormBuilderState extends State<FormBuilder> {
                             ? "DD-MM-YYYY"
                             : dateFormater.format(e.answer),
                         // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
-                        context: context,
-
                         showImage: false,
                         isRequired: false,
                         width: screenWidth(context: context, mulBy: 0.4),
                       ),
                     ),
                   ),
-                  customDropdownWidget(
+                  CustomDropdown(
                     onChanged: (val) {},
                     onTap: () async {
                       TimeOfDay tempTime = await selectTime(context);
@@ -425,7 +425,6 @@ class _FormBuilderState extends State<FormBuilder> {
                     title: e.answer != null
                         ? formatTimeOfDay(TimeOfDay.fromDateTime(e.answer))
                         : "Hr:Mins",
-                    context: context,
                     showImage: false,
                     isRequired: false,
                     width: screenWidth(context: context, mulBy: 0.3),
@@ -462,7 +461,7 @@ class _FormBuilderState extends State<FormBuilder> {
               padding: const EdgeInsets.only(left: 16.0),
               child: Row(
                 children: <Widget>[
-                  customDropdownWidget(
+                  CustomDropdown(
                     onChanged: (val) {},
                     onTap: () async {
                       TimeOfDay tempTime = await selectTime(context);
@@ -494,7 +493,6 @@ class _FormBuilderState extends State<FormBuilder> {
                     title: e.answer != null
                         ? formatTimeOfDay(TimeOfDay.fromDateTime(e.answer))
                         : "Hr:Mins",
-                    context: context,
                     showImage: false,
                     isRequired: false,
                     width: screenWidth(context: context, mulBy: 0.3),
@@ -535,7 +533,7 @@ class _FormBuilderState extends State<FormBuilder> {
                   Theme(
                     data: ThemeData(),
                     child: Builder(
-                      builder: (context) => customDropdownWidget(
+                      builder: (context) => CustomDropdown(
                         onChanged: (val) {
                           print(val);
                         },
@@ -562,8 +560,6 @@ class _FormBuilderState extends State<FormBuilder> {
                             ? "DD-MM-YYYY"
                             : dateFormater.format(e.answer),
                         // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
-                        context: context,
-
                         showImage: false,
                         isRequired: false,
                         width: screenWidth(context: context, mulBy: 0.4),

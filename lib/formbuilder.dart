@@ -1,3 +1,3 @@
 library formbuilder;
 
-export 'src/formWidget.dart';
+export 'src/screens/form_builder/page/form_builder.dart';
