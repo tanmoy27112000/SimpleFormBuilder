@@ -1,16 +1,225 @@
-import 'package:flutter/material.dart';
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:simple_form_builder/global/constant.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/custom_dropdown.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/descriptionWidget.dart';
 
 import '../../../../global/checklistModel.dart';
 
-class FormBuilderView extends StatefulWidget {
+class SimpleDropdown extends StatefulWidget {
+  SimpleDropdown({
+    Key? key,
+    required this.questions,
+    required this.showIndex,
+    required this.index,
+    required this.showIcon,
+    this.remarkImage,
+    this.checklistModel,
+    this.dropdownImage,
+    this.descriptionTextDecoration,
+  }) : super(key: key);
+
+  final Questions questions;
+  final ChecklistModel? checklistModel;
+  final bool showIndex;
+  final String? dropdownImage;
+  final String? remarkImage;
+  final int index;
+  final bool showIcon;
+  final TextStyle? descriptionTextDecoration;
+
+  @override
+  State<SimpleDropdown> createState() => _SimpleDropdownState();
+}
+
+class _SimpleDropdownState extends State<SimpleDropdown> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 16.0, top: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              widget.showIcon
+                  ? IconContainer(icon: widget.dropdownImage)
+                  : Container(),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Text(
+                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
+              ),
+              descriptionWidget(
+                  widget.questions, context, widget.descriptionTextDecoration),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 16.0,
+            horizontal: 24,
+          ),
+          child: Container(
+            width: screenWidth(context: context, mulBy: 0.9),
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(
+                color:
+                    widget.questions.answer != null ? Colors.blue : Colors.grey,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButton(
+                underline: SizedBox(),
+                hint: widget.questions.answer == null
+                    ? Text('Select option')
+                    : Text(
+                        widget.questions.answer,
+                        style: TextStyle(
+                          color: widget.questions.answer != null
+                              ? Colors.blue
+                              : Colors.grey,
+                        ),
+                      ),
+                isExpanded: true,
+                iconSize: 30.0,
+                style: TextStyle(color: Colors.grey),
+                items: widget.questions.fields!.map(
+                  (val) {
+                    return DropdownMenuItem<String>(
+                      value: val,
+                      child: Text(val),
+                    );
+                  },
+                ).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    widget.questions.answer = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SimpleRemark(
+          questions: widget.questions,
+          remark: widget.showIcon,
+          icon: widget.remarkImage,
+          onChanged: (value) {
+            widget.questions.remarkData = value;
+            setState(() {});
+          },
+        )
+      ],
+    );
+  }
+}
+
+class IconContainer extends StatelessWidget {
+  const IconContainer({Key? key, this.icon}) : super(key: key);
+
+  final String? icon;
+
+  @override
+  Widget build(BuildContext context) {
+    if (icon == null) {
+      return SizedBox.shrink();
+    }
+
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Image.asset(
+        icon!,
+        height: 20,
+      ),
+    );
+  }
+}
+
+class SimpleRemark extends StatelessWidget {
+  const SimpleRemark({
+    Key? key,
+    required this.questions,
+    required this.remark,
+    this.icon,
+    this.onChanged,
+  }) : super(key: key);
+
+  final Questions questions;
+  final bool remark;
+  final String? icon;
+  final Function(String?)? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    if (questions.remark) {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Row(
+              children: <Widget>[
+                remark == false
+                    ? SizedBox(
+                        width: 16,
+                      )
+                    : icon == null
+                        ? Container(
+                            padding: EdgeInsets.only(left: 16),
+                          )
+                        : Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Image.asset(
+                              icon!,
+                              height: 20,
+                            ),
+                          ),
+                Text("Enter remarks"),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextField(
+                      onChanged: onChanged,
+                      decoration: InputDecoration.collapsed(
+                        hintText: "Enter your remarks",
+                        hintStyle: TextStyle(
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
+    return Container();
+  }
+}
+
+class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
 
   final InputDecoration? textfieldDecoration;
@@ -37,17 +246,17 @@ class FormBuilderView extends StatefulWidget {
   final TextStyle? titleTextDecoration;
   final TextStyle? descriptionTextDecoration;
 
-  const FormBuilderView({
+  const FormBuilder({
     required this.initialData,
     required this.index,
     this.textfieldDecoration, //adds inputdecoration to textfields
     this.textFieldWidth, //to change the width of textField
-    this.multipleimage, //adds  image for case 'multiple'
-    this.dropdownImage, //adds  image for case 'dropdown'
-    this.checkboxImage, //adds  image for case 'checkbox'
-    this.dateImage, //adds  image for case 'date'
-    this.textImage, //adds  image for case 'text'
-    this.remarkImage, //adds image for remarks
+    this.multipleimage, //adds  icon for case 'multiple'
+    this.dropdownImage, //adds  icon for case 'dropdown'
+    this.checkboxImage, //adds  icon for case 'checkbox'
+    this.dateImage, //adds  icon for case 'date'
+    this.textImage, //adds  icon for case 'text'
+    this.remarkImage, //adds icon for remarks
     this.submitButtonText,
     this.showIcon = false, //to enable or disable question icon
     required this.onSubmit,
@@ -68,7 +277,7 @@ class FormBuilderView extends StatefulWidget {
   _FormBuilderState createState() => _FormBuilderState();
 }
 
-class _FormBuilderState extends State<FormBuilderView> {
+class _FormBuilderState extends State<FormBuilder> {
   ChecklistModel? checklistModel;
 
   @override
@@ -209,77 +418,87 @@ class _FormBuilderState extends State<FormBuilderView> {
         );
 
       case "dropdown":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.showIcon
-                      ? iconContainer(widget.dropdownImage)
-                      : Container(),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
-                  ),
-                  descriptionWidget(
-                      e, context, widget.descriptionTextDecoration),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 16.0,
-                horizontal: 24,
-              ),
-              child: Container(
-                width: screenWidth(context: context, mulBy: 0.9),
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: e.answer != null ? Colors.blue : Colors.grey,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton(
-                    underline: SizedBox(),
-                    hint: e.answer == null
-                        ? Text('Select option')
-                        : Text(
-                            e.answer,
-                            style: TextStyle(
-                              color:
-                                  e.answer != null ? Colors.blue : Colors.grey,
-                            ),
-                          ),
-                    isExpanded: true,
-                    iconSize: 30.0,
-                    style: TextStyle(color: Colors.grey),
-                    items: e.fields!.map(
-                      (val) {
-                        return DropdownMenuItem<String>(
-                          value: val,
-                          child: Text(val),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        e.answer = value;
-                      });
-                    },
-                  ),
-                ),
-              ),
-            ),
-            remarkWidget(e, remarks, widget.remarkImage),
-          ],
+        return SimpleDropdown(
+          questions: e,
+          showIndex: widget.showIndex,
+          remarkImage: widget.remarkImage,
+          index: widget.index,
+          showIcon: widget.showIcon,
+          checklistModel: checklistModel,
+          dropdownImage: widget.dropdownImage,
+          descriptionTextDecoration: widget.descriptionTextDecoration,
         );
+      // return Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: <Widget>[
+      //     Padding(
+      //       padding: EdgeInsets.only(left: 16.0, top: 16),
+      //       child: Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         children: [
+      //           widget.showIcon
+      //               ? iconContainer(widget.dropdownImage)
+      //               : Container(),
+      //           Container(
+      //             width: MediaQuery.of(context).size.width * 0.9,
+      //             child: Text(
+      //                 "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+      //           ),
+      //           descriptionWidget(
+      //               e, context, widget.descriptionTextDecoration),
+      //         ],
+      //       ),
+      //     ),
+      //     Padding(
+      //       padding: const EdgeInsets.symmetric(
+      //         vertical: 16.0,
+      //         horizontal: 24,
+      //       ),
+      //       child: Container(
+      //         width: screenWidth(context: context, mulBy: 0.9),
+      //         height: 50,
+      //         decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.circular(5),
+      //           border: Border.all(
+      //             color: e.answer != null ? Colors.blue : Colors.grey,
+      //           ),
+      //         ),
+      //         child: Padding(
+      //           padding: const EdgeInsets.all(8.0),
+      //           child: DropdownButton(
+      //             underline: SizedBox(),
+      //             hint: e.answer == null
+      //                 ? Text('Select option')
+      //                 : Text(
+      //                     e.answer,
+      //                     style: TextStyle(
+      //                       color:
+      //                           e.answer != null ? Colors.blue : Colors.grey,
+      //                     ),
+      //                   ),
+      //             isExpanded: true,
+      //             iconSize: 30.0,
+      //             style: TextStyle(color: Colors.grey),
+      //             items: e.fields!.map(
+      //               (val) {
+      //                 return DropdownMenuItem<String>(
+      //                   value: val,
+      //                   child: Text(val),
+      //                 );
+      //               },
+      //             ).toList(),
+      //             onChanged: (value) {
+      //               setState(() {
+      //                 e.answer = value;
+      //               });
+      //             },
+      //           ),
+      //         ),
+      //       ),
+      //     ),
+      //     remarkWidget(e, remarks, widget.remarkImage),
+      //   ],
+      // );
 
       case "checkbox":
         return Column(
@@ -711,19 +930,19 @@ class _FormBuilderState extends State<FormBuilderView> {
     }
   }
 
-  Widget iconContainer(image) {
-    return image == null
+  Widget iconContainer(icon) {
+    return icon == null
         ? Container()
         : Container(
             padding: EdgeInsets.all(10),
             child: Image.asset(
-              image,
+              icon,
               height: 20,
             ),
           );
   }
 
-  Widget remarkWidget(Questions e, showIcon, image) {
+  Widget remarkWidget(Questions e, showIcon, icon) {
     return e.remark
         ? Column(
             children: [
@@ -735,14 +954,14 @@ class _FormBuilderState extends State<FormBuilderView> {
                         ? SizedBox(
                             width: 16,
                           )
-                        : image == null
+                        : icon == null
                             ? Container(
                                 padding: EdgeInsets.only(left: 16),
                               )
                             : Container(
                                 padding: EdgeInsets.symmetric(horizontal: 16),
                                 child: Image.asset(
-                                  image,
+                                  icon,
                                   height: 20,
                                 ),
                               ),
@@ -808,11 +1027,11 @@ class _FormBuilderState extends State<FormBuilderView> {
                 title: const Text('Pick from Camera'),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  // Pick an image
-                  final image =
+                  // Pick an icon
+                  final icon =
                       await ImagePicker().pickImage(source: ImageSource.camera);
-                  if (image != null) {
-                    List<File> selectedFiles = [File(image.path)];
+                  if (icon != null) {
+                    List<File> selectedFiles = [File(icon.path)];
                     files.call(selectedFiles);
                   }
                 },
