@@ -4,220 +4,13 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
 
-import 'package:simple_form_builder/global/constant.dart';
+import 'package:simple_form_builder/src/shared/constant.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/custom_dropdown.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/descriptionWidget.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/description_widget.dart';
 
-import '../../../../global/checklistModel.dart';
-
-class SimpleDropdown extends StatefulWidget {
-  SimpleDropdown({
-    Key? key,
-    required this.questions,
-    required this.showIndex,
-    required this.index,
-    required this.showIcon,
-    this.remarkImage,
-    this.checklistModel,
-    this.dropdownImage,
-    this.descriptionTextDecoration,
-  }) : super(key: key);
-
-  final Questions questions;
-  final ChecklistModel? checklistModel;
-  final bool showIndex;
-  final String? dropdownImage;
-  final String? remarkImage;
-  final int index;
-  final bool showIcon;
-  final TextStyle? descriptionTextDecoration;
-
-  @override
-  State<SimpleDropdown> createState() => _SimpleDropdownState();
-}
-
-class _SimpleDropdownState extends State<SimpleDropdown> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(left: 16.0, top: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              widget.showIcon
-                  ? IconContainer(icon: widget.dropdownImage)
-                  : Container(),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Text(
-                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
-              ),
-              descriptionWidget(
-                  widget.questions, context, widget.descriptionTextDecoration),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16.0,
-            horizontal: 24,
-          ),
-          child: Container(
-            width: screenWidth(context: context, mulBy: 0.9),
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                color:
-                    widget.questions.answer != null ? Colors.blue : Colors.grey,
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownButton(
-                underline: SizedBox(),
-                hint: widget.questions.answer == null
-                    ? Text('Select option')
-                    : Text(
-                        widget.questions.answer,
-                        style: TextStyle(
-                          color: widget.questions.answer != null
-                              ? Colors.blue
-                              : Colors.grey,
-                        ),
-                      ),
-                isExpanded: true,
-                iconSize: 30.0,
-                style: TextStyle(color: Colors.grey),
-                items: widget.questions.fields!.map(
-                  (val) {
-                    return DropdownMenuItem<String>(
-                      value: val,
-                      child: Text(val),
-                    );
-                  },
-                ).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    widget.questions.answer = value;
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
-        SimpleRemark(
-          questions: widget.questions,
-          remark: widget.showIcon,
-          icon: widget.remarkImage,
-          onChanged: (value) {
-            widget.questions.remarkData = value;
-            setState(() {});
-          },
-        )
-      ],
-    );
-  }
-}
-
-class IconContainer extends StatelessWidget {
-  const IconContainer({Key? key, this.icon}) : super(key: key);
-
-  final String? icon;
-
-  @override
-  Widget build(BuildContext context) {
-    if (icon == null) {
-      return SizedBox.shrink();
-    }
-
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Image.asset(
-        icon!,
-        height: 20,
-      ),
-    );
-  }
-}
-
-class SimpleRemark extends StatelessWidget {
-  const SimpleRemark({
-    Key? key,
-    required this.questions,
-    required this.remark,
-    this.icon,
-    this.onChanged,
-  }) : super(key: key);
-
-  final Questions questions;
-  final bool remark;
-  final String? icon;
-  final Function(String?)? onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    if (questions.remark) {
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Row(
-              children: <Widget>[
-                remark == false
-                    ? SizedBox(
-                        width: 16,
-                      )
-                    : icon == null
-                        ? Container(
-                            padding: EdgeInsets.only(left: 16),
-                          )
-                        : Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Image.asset(
-                              icon!,
-                              height: 20,
-                            ),
-                          ),
-                Text("Enter remarks"),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      onChanged: onChanged,
-                      decoration: InputDecoration.collapsed(
-                        hintText: "Enter your remarks",
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    }
-
-    return Container();
-  }
-}
+import '../../../shared/checklistModel.dart';
 
 class FormBuilder extends StatefulWidget {
   final Map<String, dynamic> initialData;
@@ -387,8 +180,10 @@ class _FormBuilderState extends State<FormBuilder> {
                       style: widget.titleTextDecoration ?? TextStyle(),
                     ),
                   ),
-                  descriptionWidget(
-                      e, context, widget.descriptionTextDecoration),
+                  DescriptionWidget(
+                    questions: e,
+                    textStyle: widget.descriptionTextDecoration,
+                  ),
                 ],
               ),
             ),
@@ -428,78 +223,6 @@ class _FormBuilderState extends State<FormBuilder> {
           dropdownImage: widget.dropdownImage,
           descriptionTextDecoration: widget.descriptionTextDecoration,
         );
-      // return Column(
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: <Widget>[
-      //     Padding(
-      //       padding: EdgeInsets.only(left: 16.0, top: 16),
-      //       child: Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           widget.showIcon
-      //               ? iconContainer(widget.dropdownImage)
-      //               : Container(),
-      //           Container(
-      //             width: MediaQuery.of(context).size.width * 0.9,
-      //             child: Text(
-      //                 "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
-      //           ),
-      //           descriptionWidget(
-      //               e, context, widget.descriptionTextDecoration),
-      //         ],
-      //       ),
-      //     ),
-      //     Padding(
-      //       padding: const EdgeInsets.symmetric(
-      //         vertical: 16.0,
-      //         horizontal: 24,
-      //       ),
-      //       child: Container(
-      //         width: screenWidth(context: context, mulBy: 0.9),
-      //         height: 50,
-      //         decoration: BoxDecoration(
-      //           borderRadius: BorderRadius.circular(5),
-      //           border: Border.all(
-      //             color: e.answer != null ? Colors.blue : Colors.grey,
-      //           ),
-      //         ),
-      //         child: Padding(
-      //           padding: const EdgeInsets.all(8.0),
-      //           child: DropdownButton(
-      //             underline: SizedBox(),
-      //             hint: e.answer == null
-      //                 ? Text('Select option')
-      //                 : Text(
-      //                     e.answer,
-      //                     style: TextStyle(
-      //                       color:
-      //                           e.answer != null ? Colors.blue : Colors.grey,
-      //                     ),
-      //                   ),
-      //             isExpanded: true,
-      //             iconSize: 30.0,
-      //             style: TextStyle(color: Colors.grey),
-      //             items: e.fields!.map(
-      //               (val) {
-      //                 return DropdownMenuItem<String>(
-      //                   value: val,
-      //                   child: Text(val),
-      //                 );
-      //               },
-      //             ).toList(),
-      //             onChanged: (value) {
-      //               setState(() {
-      //                 e.answer = value;
-      //               });
-      //             },
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //     remarkWidget(e, remarks, widget.remarkImage),
-      //   ],
-      // );
-
       case "checkbox":
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -517,8 +240,10 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(
-                      e, context, widget.descriptionTextDecoration),
+                  DescriptionWidget(
+                    questions: e,
+                    textStyle: widget.descriptionTextDecoration,
+                  ),
                 ],
               ),
             ),
@@ -567,8 +292,10 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(
-                      e, context, widget.descriptionTextDecoration),
+                  DescriptionWidget(
+                    questions: e,
+                    textStyle: widget.descriptionTextDecoration,
+                  ),
                 ],
               ),
             ),
@@ -671,8 +398,10 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(
-                      e, context, widget.descriptionTextDecoration),
+                  DescriptionWidget(
+                    questions: e,
+                    textStyle: widget.descriptionTextDecoration,
+                  ),
                 ],
               ),
             ),
@@ -740,8 +469,10 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(
-                      e, context, widget.descriptionTextDecoration),
+                  DescriptionWidget(
+                    questions: e,
+                    textStyle: widget.descriptionTextDecoration,
+                  ),
                 ],
               ),
             ),
@@ -807,7 +538,10 @@ class _FormBuilderState extends State<FormBuilder> {
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
                 ),
-                descriptionWidget(e, context, widget.descriptionTextDecoration),
+                DescriptionWidget(
+                  questions: e,
+                  textStyle: widget.descriptionTextDecoration,
+                ),
               ],
             ),
             Padding(
@@ -876,8 +610,10 @@ class _FormBuilderState extends State<FormBuilder> {
                     child: Text(
                         "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
                   ),
-                  descriptionWidget(
-                      e, context, widget.descriptionTextDecoration),
+                  DescriptionWidget(
+                    questions: e,
+                    textStyle: widget.descriptionTextDecoration,
+                  ),
                 ],
               ),
             ),

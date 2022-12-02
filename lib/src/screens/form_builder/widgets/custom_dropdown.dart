@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_form_builder/global/constant.dart';
+import 'package:simple_form_builder/src/shared/constant.dart';
 
 class CustomDropdown extends StatelessWidget {
   const CustomDropdown({
