@@ -107,7 +107,7 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
             ),
           ),
         ),
-        SimpleRemark(
+        RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,

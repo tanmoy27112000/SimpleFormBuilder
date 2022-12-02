@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_multiple.dart';
 
 import 'package:simple_form_builder/src/shared/constant.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/custom_dropdown.dart';
@@ -162,56 +163,17 @@ class _FormBuilderState extends State<FormBuilder> {
   ) {
     switch (e.type) {
       case "multiple":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.showIcon
-                      ? iconContainer(widget.multipleimage)
-                      : Container(),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                      "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}",
-                      style: widget.titleTextDecoration ?? TextStyle(),
-                    ),
-                  ),
-                  DescriptionWidget(
-                    questions: e,
-                    textStyle: widget.descriptionTextDecoration,
-                  ),
-                ],
-              ),
-            ),
-            Column(
-              children: e.fields!
-                  .map(
-                    (val) => RadioListTile(
-                      value: val,
-                      groupValue: e.answer,
-                      title: Text(
-                        val,
-                        style: TextStyle(
-                            color: e.answer != val ? Colors.grey : Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 15),
-                      ),
-                      onChanged: (value) {
-                        e.answer = value;
-                        setState(() {});
-                      },
-                    ),
-                  )
-                  .toList(),
-            ),
-            remarkWidget(e, remarks, widget.remarkImage),
-          ],
+        return SimpleMultiple(
+          questions: e,
+          showIcon: widget.showIcon,
+          showIndex: widget.showIndex,
+          index: widget.index,
+          title: widget.title,
+          descriptionTextDecoration: widget.descriptionTextDecoration,
+          multipleimage: widget.multipleimage,
+          titleTextDecoration: widget.titleTextDecoration,
+          remarkImage: widget.remarkImage,
         );
-
       case "dropdown":
         return SimpleDropdown(
           questions: e,

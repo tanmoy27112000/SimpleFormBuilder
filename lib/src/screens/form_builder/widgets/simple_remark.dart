@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:simple_form_builder/src/shared/checklistModel.dart';
 
-class SimpleRemark extends StatelessWidget {
-  const SimpleRemark({
+class RemarkWidget extends StatelessWidget {
+  const RemarkWidget({
     Key? key,
     required this.questions,
     required this.remark,
