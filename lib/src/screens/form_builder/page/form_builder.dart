@@ -1,15 +1,11 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_checkbox.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_date.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_datetime.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_file.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_multiple.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_remark.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_text.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_time.dart';
 
 import 'package:simple_form_builder/src/shared/constant.dart';
@@ -245,186 +241,21 @@ class _FormBuilderState extends State<FormBuilder> {
         );
 
       case "text":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.showIcon
-                      ? iconContainer(widget.textImage)
-                      : Container(),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
-                  ),
-                  DescriptionWidget(
-                    questions: questions,
-                    textStyle: widget.descriptionTextDecoration,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16,
-              ),
-              child: Container(
-                width: screenWidth(
-                    context: context,
-                    mulBy: widget.textFieldWidth == null
-                        ? 0.9
-                        : widget.textFieldWidth),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      maxLines: questions.maxline,
-                      onChanged: (value) {
-                        // e.answer = value;
-                        setState(() {
-                          questions.answer = value;
-                        });
-                      },
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                      decoration: widget.textfieldDecoration ??
-                          InputDecoration.collapsed(
-                            hintText: "Enter text here",
-                            hintStyle: TextStyle(
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            remarkWidget(questions, remarks, widget.remarkImage),
-          ],
+        return SimpleText(
+          questions: questions,
+          checklistModel: checklistModel,
+          showIndex: widget.showIndex,
+          textImage: widget.textImage,
+          remarkImage: widget.remarkImage,
+          index: widget.index,
+          showIcon: remarks,
+          descriptionTextDecoration: widget.descriptionTextDecoration,
+          textFieldWidth: widget.textFieldWidth,
+          textfieldDecoration: widget.textfieldDecoration,
         );
 
       default:
         return SizedBox();
     }
-  }
-
-  Widget iconContainer(icon) {
-    return icon == null
-        ? Container()
-        : Container(
-            padding: EdgeInsets.all(10),
-            child: Image.asset(
-              icon,
-              height: 20,
-            ),
-          );
-  }
-
-  Widget remarkWidget(Questions e, showIcon, icon) {
-    return e.remark
-        ? Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Row(
-                  children: <Widget>[
-                    showIcon == false
-                        ? SizedBox(
-                            width: 16,
-                          )
-                        : icon == null
-                            ? Container(
-                                padding: EdgeInsets.only(left: 16),
-                              )
-                            : Container(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Image.asset(
-                                  icon,
-                                  height: 20,
-                                ),
-                              ),
-                    Text("Enter remarks"),
-                  ],
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextField(
-                          onChanged: (value) {
-                            e.remarkData = value;
-                            setState(() {});
-                          },
-                          decoration: InputDecoration.collapsed(
-                            hintText: "Enter your remarks",
-                            hintStyle: TextStyle(
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )
-        : SizedBox.shrink();
-  }
-
-  void fileUpload(Function(dynamic) files) async {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: const Text('Pick from Gallery'),
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  FilePickerResult? result =
-                      await FilePicker.platform.pickFiles(allowMultiple: true);
-
-                  if (result != null) {
-                    List<File> selectedFiles =
-                        result.paths.map((path) => File(path ?? '')).toList();
-                    files.call(selectedFiles);
-                  }
-                },
-              ),
-              ListTile(
-                title: const Text('Pick from Camera'),
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  // Pick an icon
-                  final icon =
-                      await ImagePicker().pickImage(source: ImageSource.camera);
-                  if (icon != null) {
-                    List<File> selectedFiles = [File(icon.path)];
-                    files.call(selectedFiles);
-                  }
-                },
-              )
-            ],
-          );
-        });
   }
 }
