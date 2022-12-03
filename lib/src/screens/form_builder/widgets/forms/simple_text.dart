@@ -1,7 +1,7 @@
 part of 'question_widget.dart';
 
-class SimpleText extends StatefulWidget {
-  const SimpleText({
+class _SimpleText extends StatefulWidget {
+  const _SimpleText({
     Key? key,
     required this.questions,
     this.checklistModel,
@@ -27,10 +27,10 @@ class SimpleText extends StatefulWidget {
   final InputDecoration? textfieldDecoration;
 
   @override
-  State<SimpleText> createState() => _SimpleTextState();
+  State<_SimpleText> createState() => _SimpleTextState();
 }
 
-class _SimpleTextState extends State<SimpleText> {
+class _SimpleTextState extends State<_SimpleText> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +96,7 @@ class _SimpleTextState extends State<SimpleText> {
             ),
           ),
         ),
-        RemarkWidget(
+        _RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,

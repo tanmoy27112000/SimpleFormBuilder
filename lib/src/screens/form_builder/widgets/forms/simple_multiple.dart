@@ -1,7 +1,7 @@
 part of 'question_widget.dart';
 
-class SimpleMultiple extends StatefulWidget {
-  const SimpleMultiple({
+class _SimpleMultiple extends StatefulWidget {
+  const _SimpleMultiple({
     Key? key,
     required this.questions,
     this.checklistModel,
@@ -25,10 +25,10 @@ class SimpleMultiple extends StatefulWidget {
   final String? remarkImage;
 
   @override
-  State<SimpleMultiple> createState() => _SimpleMultipleState();
+  State<_SimpleMultiple> createState() => _SimpleMultipleState();
 }
 
-class _SimpleMultipleState extends State<SimpleMultiple> {
+class _SimpleMultipleState extends State<_SimpleMultiple> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -79,7 +79,7 @@ class _SimpleMultipleState extends State<SimpleMultiple> {
               )
               .toList(),
         ),
-        RemarkWidget(
+        _RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,

@@ -1,7 +1,7 @@
 part of 'question_widget.dart';
 
-class SimpleDropdown extends StatefulWidget {
-  SimpleDropdown({
+class _SimpleDropdown extends StatefulWidget {
+  _SimpleDropdown({
     Key? key,
     required this.questions,
     required this.showIndex,
@@ -23,10 +23,10 @@ class SimpleDropdown extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<SimpleDropdown> createState() => _SimpleDropdownState();
+  State<_SimpleDropdown> createState() => _SimpleDropdownState();
 }
 
-class _SimpleDropdownState extends State<SimpleDropdown> {
+class _SimpleDropdownState extends State<_SimpleDropdown> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -101,7 +101,7 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
             ),
           ),
         ),
-        RemarkWidget(
+        _RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,

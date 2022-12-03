@@ -80,7 +80,7 @@ class _SimpleCheckboxState extends State<_SimpleCheckbox> {
               )
               .toList(),
         ),
-        RemarkWidget(
+        _RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,

@@ -36,7 +36,7 @@ class QuestionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (questions.type) {
       case "multiple":
-        return SimpleMultiple(
+        return _SimpleMultiple(
           questions: questions,
           showIcon: remarks,
           showIndex: widget.showIndex,
@@ -47,7 +47,7 @@ class QuestionWidget extends StatelessWidget {
           remarkImage: widget.remarkImage,
         );
       case "dropdown":
-        return SimpleDropdown(
+        return _SimpleDropdown(
           questions: questions,
           showIcon: remarks,
           showIndex: widget.showIndex,
@@ -69,7 +69,7 @@ class QuestionWidget extends StatelessWidget {
           descriptionTextDecoration: widget.descriptionTextDecoration,
         );
       case "datetime":
-        return SimpleDateTime(
+        return _SimpleDateTime(
           questions: questions,
           checklistModel: checklistModel,
           showIndex: widget.showIndex,
@@ -80,7 +80,7 @@ class QuestionWidget extends StatelessWidget {
           descriptionTextDecoration: widget.descriptionTextDecoration,
         );
       case "time":
-        return SimpleTime(
+        return _SimpleTime(
           questions: questions,
           checklistModel: checklistModel,
           showIndex: widget.showIndex,
@@ -103,7 +103,7 @@ class QuestionWidget extends StatelessWidget {
           descriptionTextDecoration: widget.descriptionTextDecoration,
         );
       case "file":
-        return SimpleFile(
+        return _SimpleFile(
           questions: questions,
           checklistModel: checklistModel,
           showIndex: widget.showIndex,
@@ -114,7 +114,7 @@ class QuestionWidget extends StatelessWidget {
         );
 
       case "text":
-        return SimpleText(
+        return _SimpleText(
           questions: questions,
           checklistModel: checklistModel,
           showIndex: widget.showIndex,

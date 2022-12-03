@@ -1,7 +1,7 @@
 part of 'question_widget.dart';
 
-class SimpleTime extends StatefulWidget {
-  const SimpleTime({
+class _SimpleTime extends StatefulWidget {
+  const _SimpleTime({
     Key? key,
     required this.questions,
     this.checklistModel,
@@ -23,10 +23,10 @@ class SimpleTime extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<SimpleTime> createState() => _SimpleTimeState();
+  State<_SimpleTime> createState() => _SimpleTimeState();
 }
 
-class _SimpleTimeState extends State<SimpleTime> {
+class _SimpleTimeState extends State<_SimpleTime> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +96,7 @@ class _SimpleTimeState extends State<SimpleTime> {
             ],
           ),
         ),
-        RemarkWidget(
+        _RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,

@@ -1,7 +1,7 @@
 part of 'question_widget.dart';
 
-class SimpleFile extends StatefulWidget {
-  const SimpleFile({
+class _SimpleFile extends StatefulWidget {
+  const _SimpleFile({
     Key? key,
     required this.questions,
     this.checklistModel,
@@ -21,10 +21,10 @@ class SimpleFile extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<SimpleFile> createState() => _SimpleFileState();
+  State<_SimpleFile> createState() => _SimpleFileState();
 }
 
-class _SimpleFileState extends State<SimpleFile> {
+class _SimpleFileState extends State<_SimpleFile> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +96,7 @@ class _SimpleFileState extends State<SimpleFile> {
             ],
           ),
         ),
-        RemarkWidget(
+        _RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,

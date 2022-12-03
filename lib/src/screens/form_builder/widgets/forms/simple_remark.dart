@@ -1,7 +1,7 @@
 part of 'question_widget.dart';
 
-class RemarkWidget extends StatelessWidget {
-  const RemarkWidget({
+class _RemarkWidget extends StatelessWidget {
+  const _RemarkWidget({
     Key? key,
     required this.questions,
     required this.remark,

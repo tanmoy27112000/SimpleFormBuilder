@@ -95,7 +95,7 @@ class _SimpleDateState extends State<_SimpleDate> {
             ],
           ),
         ),
-        RemarkWidget(
+        _RemarkWidget(
           questions: widget.questions,
           remark: widget.showIcon,
           icon: widget.remarkImage,
