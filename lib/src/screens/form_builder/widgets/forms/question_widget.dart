@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_form_builder/src/screens/form_builder/page/form_builder.dart';
+import 'package:simple_form_builder/src/screens/form_builder/provider/form_builder_provider.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/custom_dropdown.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/description_widget.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_icon_container.dart';
@@ -41,6 +43,7 @@ class QuestionWidget extends StatelessWidget {
           showIcon: remarks,
           showIndex: widget.showIndex,
           index: widget.index,
+          checklistModel: checklistModel,
           descriptionTextDecoration: widget.descriptionTextDecoration,
           multipleimage: widget.multipleimage,
           titleTextDecoration: widget.titleTextDecoration,

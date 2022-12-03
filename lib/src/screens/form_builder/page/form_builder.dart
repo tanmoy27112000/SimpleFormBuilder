@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_form_builder/src/screens/form_builder/provider/form_builder_provider.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/forms/question_widget.dart';
 
 import 'package:simple_form_builder/src/shared/constant.dart';
@@ -26,7 +28,7 @@ class FormBuilder extends StatefulWidget {
   final int index;
   final double? textFieldWidth;
   final bool showIcon;
-  final Function onSubmit;
+  final Function(ChecklistModel? value) onSubmit;
   final double? submitButtonWidth;
   final BoxDecoration? submitButtonDecoration;
   final TextStyle? submitTextDecoration;
@@ -65,80 +67,80 @@ class FormBuilder extends StatefulWidget {
 }
 
 class _FormBuilderState extends State<FormBuilder> {
-  ChecklistModel? checklistModel;
-
-  @override
-  void initState() {
-    checklistModel = ChecklistModel.fromJson(widget.initialData);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: widget.widgetCrossAxisAlignment,
-          children: [
-            widget.title != null
-                ? Text(
-                    widget.title!,
-                    style: widget.titleStyle ?? TextStyle(),
-                  )
-                : SizedBox.shrink(),
-            widget.description != null
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.description!,
-                      style: widget.descriptionStyle ?? TextStyle(),
-                    ),
-                  )
-                : SizedBox.shrink(),
-            ...checklistModel!.data![widget.index].questions!
-                .map((question) => QuestionWidget(
-                      questions: question,
-                      remarks: widget.showIcon,
-                      widget: widget,
-                      checklistModel: checklistModel,
-                    ))
-                .toList(),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: InkWell(
-                onTap: () {
-                  widget.onSubmit(getCompleteData(
-                    context: context,
-                    index: widget.index,
-                    checklistModel: checklistModel,
-                  ));
-                },
-                child: Container(
-                  height: 50,
-                  width: screenWidth(
-                    context: context,
-                    mulBy: widget.submitButtonWidth ?? 0.5,
-                  ),
-                  decoration: widget.submitButtonDecoration ??
-                      BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.blue,
-                      ),
-                  child: Center(
-                    child: Text(
-                      widget.submitButtonText ?? "Submit",
-                      style: widget.submitTextDecoration ??
-                          TextStyle(color: Colors.white),
-                    ),
-                  ),
+    return ChangeNotifierProvider(
+      create: (_) => FormBuilderProvider(initial: widget.initialData),
+      builder: (context, child) {
+        final checklistModel =
+            context.watch<FormBuilderProvider>().checklistModel;
+
+        return Container(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: widget.widgetCrossAxisAlignment,
+              children: [
+                widget.title != null
+                    ? Text(
+                        widget.title!,
+                        style: widget.titleStyle ?? TextStyle(),
+                      )
+                    : SizedBox.shrink(),
+                widget.description != null
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.description!,
+                          style: widget.descriptionStyle ?? TextStyle(),
+                        ),
+                      )
+                    : SizedBox.shrink(),
+                ...checklistModel!.data![widget.index].questions!
+                    .map((question) => QuestionWidget(
+                          questions: question,
+                          remarks: widget.showIcon,
+                          widget: widget,
+                          checklistModel: checklistModel,
+                        ))
+                    .toList(),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            )
-          ],
-        ),
-      ),
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      widget.onSubmit(getCompleteData(
+                        context: context,
+                        index: widget.index,
+                        checklistModel: checklistModel,
+                      ));
+                    },
+                    child: Container(
+                      height: 50,
+                      width: screenWidth(
+                        context: context,
+                        mulBy: widget.submitButtonWidth ?? 0.5,
+                      ),
+                      decoration: widget.submitButtonDecoration ??
+                          BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.blue,
+                          ),
+                      child: Center(
+                        child: Text(
+                          widget.submitButtonText ?? "Submit",
+                          style: widget.submitTextDecoration ??
+                              TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

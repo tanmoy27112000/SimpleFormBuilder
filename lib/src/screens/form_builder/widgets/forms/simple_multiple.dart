@@ -4,10 +4,10 @@ class _SimpleMultiple extends StatefulWidget {
   const _SimpleMultiple({
     Key? key,
     required this.questions,
-    this.checklistModel,
     required this.showIcon,
     required this.showIndex,
     required this.index,
+    this.checklistModel,
     this.descriptionTextDecoration,
     this.multipleimage,
     this.titleTextDecoration,
@@ -31,6 +31,8 @@ class _SimpleMultiple extends StatefulWidget {
 class _SimpleMultipleState extends State<_SimpleMultiple> {
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<FormBuilderProvider>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -72,8 +74,7 @@ class _SimpleMultipleState extends State<_SimpleMultiple> {
                         fontSize: 15),
                   ),
                   onChanged: (value) {
-                    widget.questions.answer = value;
-                    setState(() {});
+                    provider.setAnswers(widget.questions, value, widget.index);
                   },
                 ),
               )
@@ -84,8 +85,7 @@ class _SimpleMultipleState extends State<_SimpleMultiple> {
           remark: widget.showIcon,
           icon: widget.remarkImage,
           onChanged: (value) {
-            widget.questions.remarkData = value;
-            setState(() {});
+            provider.setRemarks(widget.questions, value, widget.index);
           },
         ),
       ],

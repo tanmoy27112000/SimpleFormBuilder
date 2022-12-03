@@ -8,6 +8,7 @@ ChecklistModel? getCompleteData({
 }) {
   int f = 0;
   List<Questions>? questions = checklistModel!.data![index].questions;
+
   for (Questions item in questions!) {
     if (item.answer == null && item.isMandatory == true) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -15,9 +16,11 @@ ChecklistModel? getCompleteData({
           content: Text("${item.title} is mandatory"),
         ),
       );
+
       f = 1;
       break;
     }
   }
+
   return f == 0 ? checklistModel : null;
 }
