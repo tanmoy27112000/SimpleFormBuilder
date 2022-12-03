@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -8,11 +7,12 @@ import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_chec
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_date.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_datetime.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_file.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_multiple.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_remark.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_time.dart';
 
 import 'package:simple_form_builder/src/shared/constant.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/custom_dropdown.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/description_widget.dart';
 
 import '../../../shared/checklistModel.dart';
@@ -234,73 +234,14 @@ class _FormBuilderState extends State<FormBuilder> {
           descriptionTextDecoration: widget.descriptionTextDecoration,
         );
       case "file":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 16.0, top: 16),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
-                  ),
-                ),
-                DescriptionWidget(
-                  questions: questions,
-                  textStyle: widget.descriptionTextDecoration,
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(
-                      alignment: Alignment.topRight,
-                      children: [
-                        Container(
-                          height: 70,
-                          width: 100,
-                          child: Icon(
-                            Icons.add_a_photo_outlined,
-                            color: Colors.grey[500],
-                            size: 70,
-                          ),
-                        ),
-                        questions.answer != null
-                            ? CircleAvatar(
-                                backgroundColor: Colors.green,
-                                radius: 15,
-                                child: Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : SizedBox.shrink(),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () => fileUpload(
-                        (files) => setState(() => questions.answer = files)),
-                    child: Text(
-                      "Upload",
-                      style: TextStyle(
-                        color: Colors.black,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            remarkWidget(questions, remarks, widget.remarkImage),
-          ],
+        return SimpleFile(
+          questions: questions,
+          checklistModel: checklistModel,
+          showIndex: widget.showIndex,
+          remarkImage: widget.remarkImage,
+          index: widget.index,
+          showIcon: remarks,
+          descriptionTextDecoration: widget.descriptionTextDecoration,
         );
 
       case "text":
