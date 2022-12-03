@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:simple_form_builder/src/shared/checklistModel.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/description_widget.dart';
-import 'package:simple_form_builder/src/shared/constant.dart';
-
-import 'simple_icon_container.dart';
-import 'simple_remark.dart';
+part of 'question_widget.dart';
 
 class SimpleDropdown extends StatefulWidget {
   SimpleDropdown({

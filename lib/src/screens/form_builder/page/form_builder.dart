@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_checkbox.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_date.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_datetime.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_file.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_multiple.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_text.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_time.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/forms/question_widget.dart';
 
 import 'package:simple_form_builder/src/shared/constant.dart';
-import 'package:simple_form_builder/src/screens/form_builder/widgets/description_widget.dart';
+import 'package:simple_form_builder/src/shared/utils/get_completed_data.dart';
 
 import '../../../shared/checklistModel.dart';
 
@@ -103,7 +96,12 @@ class _FormBuilderState extends State<FormBuilder> {
                   )
                 : SizedBox.shrink(),
             ...checklistModel!.data![widget.index].questions!
-                .map((e) => questionWidget(e, widget.showIcon))
+                .map((question) => QuestionWidget(
+                      questions: question,
+                      remarks: widget.showIcon,
+                      widget: widget,
+                      checklistModel: checklistModel,
+                    ))
                 .toList(),
             SizedBox(
               height: 10,
@@ -111,7 +109,11 @@ class _FormBuilderState extends State<FormBuilder> {
             Center(
               child: InkWell(
                 onTap: () {
-                  widget.onSubmit(getCompleteData(widget.index));
+                  widget.onSubmit(getCompleteData(
+                    context: context,
+                    index: widget.index,
+                    checklistModel: checklistModel,
+                  ));
                 },
                 child: Container(
                   height: 50,
@@ -138,124 +140,5 @@ class _FormBuilderState extends State<FormBuilder> {
         ),
       ),
     );
-  }
-
-  getCompleteData(int index) {
-    int f = 0;
-    List<Questions>? questions = checklistModel!.data![index].questions;
-    for (Questions item in questions!) {
-      if (item.answer == null && item.isMandatory == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("${item.title} is mandatory"),
-          ),
-        );
-        f = 1;
-        break;
-      }
-    }
-    return f == 0 ? checklistModel : null;
-  }
-
-  Widget questionWidget(
-    Questions questions,
-    bool remarks,
-  ) {
-    switch (questions.type) {
-      case "multiple":
-        return SimpleMultiple(
-          questions: questions,
-          showIcon: remarks,
-          showIndex: widget.showIndex,
-          index: widget.index,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-          multipleimage: widget.multipleimage,
-          titleTextDecoration: widget.titleTextDecoration,
-          remarkImage: widget.remarkImage,
-        );
-      case "dropdown":
-        return SimpleDropdown(
-          questions: questions,
-          showIcon: remarks,
-          showIndex: widget.showIndex,
-          remarkImage: widget.remarkImage,
-          index: widget.index,
-          checklistModel: checklistModel,
-          dropdownImage: widget.dropdownImage,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-        );
-      case "checkbox":
-        return SimpleCheckbox(
-          questions: questions,
-          checklistModel: checklistModel,
-          showIndex: widget.showIndex,
-          checkboxImage: widget.checkboxImage,
-          remarkImage: widget.remarkImage,
-          index: widget.index,
-          showIcon: remarks,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-        );
-      case "datetime":
-        return SimpleDateTime(
-          questions: questions,
-          checklistModel: checklistModel,
-          showIndex: widget.showIndex,
-          dateImage: widget.dateImage,
-          remarkImage: widget.remarkImage,
-          index: widget.index,
-          showIcon: remarks,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-        );
-      case "time":
-        return SimpleTime(
-          questions: questions,
-          checklistModel: checklistModel,
-          showIndex: widget.showIndex,
-          dateImage: widget.dateImage,
-          remarkImage: widget.remarkImage,
-          index: widget.index,
-          showIcon: remarks,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-        );
-
-      case "date":
-        return SimpleDate(
-          questions: questions,
-          checklistModel: checklistModel,
-          showIndex: widget.showIndex,
-          dateImage: widget.dateImage,
-          remarkImage: widget.remarkImage,
-          index: widget.index,
-          showIcon: remarks,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-        );
-      case "file":
-        return SimpleFile(
-          questions: questions,
-          checklistModel: checklistModel,
-          showIndex: widget.showIndex,
-          remarkImage: widget.remarkImage,
-          index: widget.index,
-          showIcon: remarks,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-        );
-
-      case "text":
-        return SimpleText(
-          questions: questions,
-          checklistModel: checklistModel,
-          showIndex: widget.showIndex,
-          textImage: widget.textImage,
-          remarkImage: widget.remarkImage,
-          index: widget.index,
-          showIcon: remarks,
-          descriptionTextDecoration: widget.descriptionTextDecoration,
-          textFieldWidth: widget.textFieldWidth,
-          textfieldDecoration: widget.textfieldDecoration,
-        );
-
-      default:
-        return SizedBox();
-    }
   }
 }

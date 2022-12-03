@@ -1,14 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:simple_form_builder/src/shared/checklistModel.dart';
-import 'package:simple_form_builder/src/shared/constant.dart';
+part of 'question_widget.dart';
 
-import 'custom_dropdown.dart';
-import 'description_widget.dart';
-import 'simple_icon_container.dart';
-import 'simple_remark.dart';
-
-class SimpleDateTime extends StatefulWidget {
-  const SimpleDateTime({
+class SimpleTime extends StatefulWidget {
+  const SimpleTime({
     Key? key,
     required this.questions,
     this.checklistModel,
@@ -30,10 +23,10 @@ class SimpleDateTime extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<SimpleDateTime> createState() => _SimpleDateTimeState();
+  State<SimpleTime> createState() => _SimpleTimeState();
 }
 
-class _SimpleDateTimeState extends State<SimpleDateTime> {
+class _SimpleTimeState extends State<SimpleTime> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -63,42 +56,6 @@ class _SimpleDateTimeState extends State<SimpleDateTime> {
           padding: const EdgeInsets.only(left: 16.0),
           child: Row(
             children: <Widget>[
-              Theme(
-                data: ThemeData(),
-                child: Builder(
-                  builder: (context) => CustomDropdown(
-                    onChanged: (val) {
-                      print(val);
-                    },
-                    onTap: () async {
-                      DateTime tempDate = await selectDate(context);
-
-                      if (widget.questions.answer == null) {
-                        setState(() {
-                          widget.questions.answer = tempDate;
-                        });
-                      } else {
-                        setState(() {
-                          widget.questions.answer = DateTime(
-                            tempDate.year,
-                            tempDate.month,
-                            tempDate.day,
-                            widget.questions.answer.hour,
-                            widget.questions.answer.minute,
-                          );
-                        });
-                      }
-                    },
-                    title: widget.questions.answer == null
-                        ? "DD-MM-YYYY"
-                        : dateFormater.format(widget.questions.answer),
-                    // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
-                    showImage: false,
-                    isRequired: false,
-                    width: screenWidth(context: context, mulBy: 0.4),
-                  ),
-                ),
-              ),
               CustomDropdown(
                 onChanged: (val) {},
                 onTap: () async {

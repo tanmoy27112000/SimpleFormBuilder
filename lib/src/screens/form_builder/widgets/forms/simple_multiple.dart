@@ -1,37 +1,34 @@
-import 'package:flutter/material.dart';
-import 'package:simple_form_builder/src/shared/checklistModel.dart';
+part of 'question_widget.dart';
 
-import 'description_widget.dart';
-import 'simple_icon_container.dart';
-import 'simple_remark.dart';
-
-class SimpleCheckbox extends StatefulWidget {
-  const SimpleCheckbox({
+class SimpleMultiple extends StatefulWidget {
+  const SimpleMultiple({
     Key? key,
     required this.questions,
     this.checklistModel,
-    required this.showIndex,
-    this.checkboxImage,
-    this.remarkImage,
-    required this.index,
     required this.showIcon,
+    required this.showIndex,
+    required this.index,
     this.descriptionTextDecoration,
+    this.multipleimage,
+    this.titleTextDecoration,
+    this.remarkImage,
   }) : super(key: key);
 
   final Questions questions;
   final ChecklistModel? checklistModel;
-  final bool showIndex;
-  final String? checkboxImage;
-  final String? remarkImage;
-  final int index;
   final bool showIcon;
+  final bool showIndex;
+  final int index;
   final TextStyle? descriptionTextDecoration;
+  final String? multipleimage;
+  final TextStyle? titleTextDecoration;
+  final String? remarkImage;
 
   @override
-  State<SimpleCheckbox> createState() => _SimpleCheckboxState();
+  State<SimpleMultiple> createState() => _SimpleMultipleState();
 }
 
-class _SimpleCheckboxState extends State<SimpleCheckbox> {
+class _SimpleMultipleState extends State<SimpleMultiple> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,12 +40,14 @@ class _SimpleCheckboxState extends State<SimpleCheckbox> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               widget.showIcon
-                  ? IconContainer(icon: widget.checkboxImage)
+                  ? IconContainer(icon: widget.multipleimage)
                   : Container(),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Text(
-                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
+                  "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}",
+                  style: widget.titleTextDecoration ?? TextStyle(),
+                ),
               ),
               DescriptionWidget(
                 questions: widget.questions,
@@ -60,25 +59,20 @@ class _SimpleCheckboxState extends State<SimpleCheckbox> {
         Column(
           children: widget.questions.fields!
               .map(
-                (val) => CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  dense: true,
+                (val) => RadioListTile(
+                  value: val,
+                  groupValue: widget.questions.answer,
                   title: Text(
                     val,
                     style: TextStyle(
-                        color: widget.questions.answer[
-                                    widget.questions.fields!.indexOf(val)] !=
-                                true
+                        color: widget.questions.answer != val
                             ? Colors.grey
                             : Colors.black,
                         fontWeight: FontWeight.normal,
                         fontSize: 15),
                   ),
-                  value: widget
-                      .questions.answer[widget.questions.fields!.indexOf(val)],
                   onChanged: (value) {
-                    widget.questions
-                        .answer[widget.questions.fields!.indexOf(val)] = value;
+                    widget.questions.answer = value;
                     setState(() {});
                   },
                 ),

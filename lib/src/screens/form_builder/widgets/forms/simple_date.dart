@@ -1,14 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:simple_form_builder/src/shared/checklistModel.dart';
-import 'package:simple_form_builder/src/shared/constant.dart';
+part of 'question_widget.dart';
 
-import 'custom_dropdown.dart';
-import 'description_widget.dart';
-import 'simple_icon_container.dart';
-import 'simple_remark.dart';
-
-class SimpleDate extends StatefulWidget {
-  const SimpleDate({
+class _SimpleDate extends StatefulWidget {
+  const _SimpleDate({
     Key? key,
     required this.questions,
     this.checklistModel,
@@ -30,10 +23,10 @@ class SimpleDate extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<SimpleDate> createState() => _SimpleDateState();
+  State<_SimpleDate> createState() => _SimpleDateState();
 }
 
-class _SimpleDateState extends State<SimpleDate> {
+class _SimpleDateState extends State<_SimpleDate> {
   @override
   Widget build(BuildContext context) {
     return Column(

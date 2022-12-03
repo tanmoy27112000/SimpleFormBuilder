@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:simple_form_builder/src/shared/checklistModel.dart';
-import 'package:simple_form_builder/src/shared/constant.dart';
-
-import 'description_widget.dart';
-import 'simple_icon_container.dart';
-import 'simple_remark.dart';
+part of 'question_widget.dart';
 
 class SimpleText extends StatefulWidget {
   const SimpleText({

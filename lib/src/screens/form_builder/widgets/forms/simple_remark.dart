@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:simple_form_builder/src/shared/checklistModel.dart';
+part of 'question_widget.dart';
 
 class RemarkWidget extends StatelessWidget {
   const RemarkWidget({
