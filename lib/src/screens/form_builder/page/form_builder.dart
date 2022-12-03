@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_checkbox.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_multiple.dart';
 
@@ -158,17 +159,16 @@ class _FormBuilderState extends State<FormBuilder> {
   }
 
   Widget questionWidget(
-    Questions e,
+    Questions questions,
     bool remarks,
   ) {
-    switch (e.type) {
+    switch (questions.type) {
       case "multiple":
         return SimpleMultiple(
-          questions: e,
+          questions: questions,
           showIcon: remarks,
           showIndex: widget.showIndex,
           index: widget.index,
-          title: widget.title,
           descriptionTextDecoration: widget.descriptionTextDecoration,
           multipleimage: widget.multipleimage,
           titleTextDecoration: widget.titleTextDecoration,
@@ -176,7 +176,7 @@ class _FormBuilderState extends State<FormBuilder> {
         );
       case "dropdown":
         return SimpleDropdown(
-          questions: e,
+          questions: questions,
           showIcon: remarks,
           showIndex: widget.showIndex,
           remarkImage: widget.remarkImage,
@@ -186,57 +186,16 @@ class _FormBuilderState extends State<FormBuilder> {
           descriptionTextDecoration: widget.descriptionTextDecoration,
         );
       case "checkbox":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.showIcon
-                      ? iconContainer(widget.checkboxImage)
-                      : Container(),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
-                  ),
-                  DescriptionWidget(
-                    questions: e,
-                    textStyle: widget.descriptionTextDecoration,
-                  ),
-                ],
-              ),
-            ),
-            Column(
-              children: e.fields!
-                  .map(
-                    (val) => CheckboxListTile(
-                      controlAffinity: ListTileControlAffinity.leading,
-                      dense: true,
-                      title: Text(
-                        val,
-                        style: TextStyle(
-                            color: e.answer[e.fields!.indexOf(val)] != true
-                                ? Colors.grey
-                                : Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 15),
-                      ),
-                      value: e.answer[e.fields!.indexOf(val)],
-                      onChanged: (value) {
-                        e.answer[e.fields!.indexOf(val)] = value;
-                        setState(() {});
-                      },
-                    ),
-                  )
-                  .toList(),
-            ),
-            remarkWidget(e, remarks, widget.remarkImage),
-          ],
+        return SimpleCheckbox(
+          questions: questions,
+          checklistModel: checklistModel,
+          showIndex: widget.showIndex,
+          checkboxImage: widget.checkboxImage,
+          remarkImage: widget.remarkImage,
+          index: widget.index,
+          showIcon: remarks,
+          descriptionTextDecoration: widget.descriptionTextDecoration,
         );
-
       case "datetime":
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,10 +211,10 @@ class _FormBuilderState extends State<FormBuilder> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
                   ),
                   DescriptionWidget(
-                    questions: e,
+                    questions: questions,
                     textStyle: widget.descriptionTextDecoration,
                   ),
                 ],
@@ -275,25 +234,25 @@ class _FormBuilderState extends State<FormBuilder> {
                         onTap: () async {
                           DateTime tempDate = await selectDate(context);
 
-                          if (e.answer == null) {
+                          if (questions.answer == null) {
                             setState(() {
-                              e.answer = tempDate;
+                              questions.answer = tempDate;
                             });
                           } else {
                             setState(() {
-                              e.answer = DateTime(
+                              questions.answer = DateTime(
                                 tempDate.year,
                                 tempDate.month,
                                 tempDate.day,
-                                e.answer.hour,
-                                e.answer.minute,
+                                questions.answer.hour,
+                                questions.answer.minute,
                               );
                             });
                           }
                         },
-                        title: e.answer == null
+                        title: questions.answer == null
                             ? "DD-MM-YYYY"
-                            : dateFormater.format(e.answer),
+                            : dateFormater.format(questions.answer),
                         // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
                         showImage: false,
                         isRequired: false,
@@ -306,9 +265,9 @@ class _FormBuilderState extends State<FormBuilder> {
                     onTap: () async {
                       TimeOfDay tempTime = await selectTime(context);
 
-                      if (e.answer == null) {
+                      if (questions.answer == null) {
                         setState(() {
-                          e.answer = DateTime(
+                          questions.answer = DateTime(
                             DateTime.now().year,
                             DateTime.now().month,
                             DateTime.now().day,
@@ -318,10 +277,10 @@ class _FormBuilderState extends State<FormBuilder> {
                         });
                       } else {
                         setState(() {
-                          e.answer = DateTime(
-                            e.answer.year,
-                            e.answer.month,
-                            e.answer.day,
+                          questions.answer = DateTime(
+                            questions.answer.year,
+                            questions.answer.month,
+                            questions.answer.day,
                             tempTime.hour,
                             tempTime.minute,
                           );
@@ -330,8 +289,9 @@ class _FormBuilderState extends State<FormBuilder> {
 
                       // reminderController.updateIschanged(true);
                     },
-                    title: e.answer != null
-                        ? formatTimeOfDay(TimeOfDay.fromDateTime(e.answer))
+                    title: questions.answer != null
+                        ? formatTimeOfDay(
+                            TimeOfDay.fromDateTime(questions.answer))
                         : "Hr:Mins",
                     showImage: false,
                     isRequired: false,
@@ -340,7 +300,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e, remarks, widget.remarkImage),
+            remarkWidget(questions, remarks, widget.remarkImage),
           ],
         );
       case "time":
@@ -358,10 +318,10 @@ class _FormBuilderState extends State<FormBuilder> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
                   ),
                   DescriptionWidget(
-                    questions: e,
+                    questions: questions,
                     textStyle: widget.descriptionTextDecoration,
                   ),
                 ],
@@ -376,9 +336,9 @@ class _FormBuilderState extends State<FormBuilder> {
                     onTap: () async {
                       TimeOfDay tempTime = await selectTime(context);
 
-                      if (e.answer == null) {
+                      if (questions.answer == null) {
                         setState(() {
-                          e.answer = DateTime(
+                          questions.answer = DateTime(
                             DateTime.now().year,
                             DateTime.now().month,
                             DateTime.now().day,
@@ -388,10 +348,10 @@ class _FormBuilderState extends State<FormBuilder> {
                         });
                       } else {
                         setState(() {
-                          e.answer = DateTime(
-                            e.answer.year,
-                            e.answer.month,
-                            e.answer.day,
+                          questions.answer = DateTime(
+                            questions.answer.year,
+                            questions.answer.month,
+                            questions.answer.day,
                             tempTime.hour,
                             tempTime.minute,
                           );
@@ -400,8 +360,9 @@ class _FormBuilderState extends State<FormBuilder> {
 
                       // reminderController.updateIschanged(true);
                     },
-                    title: e.answer != null
-                        ? formatTimeOfDay(TimeOfDay.fromDateTime(e.answer))
+                    title: questions.answer != null
+                        ? formatTimeOfDay(
+                            TimeOfDay.fromDateTime(questions.answer))
                         : "Hr:Mins",
                     showImage: false,
                     isRequired: false,
@@ -410,7 +371,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e, remarks, widget.remarkImage),
+            remarkWidget(questions, remarks, widget.remarkImage),
           ],
         );
 
@@ -429,10 +390,10 @@ class _FormBuilderState extends State<FormBuilder> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
                   ),
                   DescriptionWidget(
-                    questions: e,
+                    questions: questions,
                     textStyle: widget.descriptionTextDecoration,
                   ),
                 ],
@@ -452,25 +413,25 @@ class _FormBuilderState extends State<FormBuilder> {
                         onTap: () async {
                           DateTime tempDate = await selectDate(context);
 
-                          if (e.answer == null) {
+                          if (questions.answer == null) {
                             setState(() {
-                              e.answer = tempDate;
+                              questions.answer = tempDate;
                             });
                           } else {
                             setState(() {
-                              e.answer = DateTime(
+                              questions.answer = DateTime(
                                 tempDate.year,
                                 tempDate.month,
                                 tempDate.day,
-                                e.answer.hour,
-                                e.answer.minute,
+                                questions.answer.hour,
+                                questions.answer.minute,
                               );
                             });
                           }
                         },
-                        title: e.answer == null
+                        title: questions.answer == null
                             ? "DD-MM-YYYY"
-                            : dateFormater.format(e.answer),
+                            : dateFormater.format(questions.answer),
                         // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
                         showImage: false,
                         isRequired: false,
@@ -481,7 +442,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e, remarks, widget.remarkImage),
+            remarkWidget(questions, remarks, widget.remarkImage),
           ],
         );
 
@@ -497,11 +458,11 @@ class _FormBuilderState extends State<FormBuilder> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
                   ),
                 ),
                 DescriptionWidget(
-                  questions: e,
+                  questions: questions,
                   textStyle: widget.descriptionTextDecoration,
                 ),
               ],
@@ -524,7 +485,7 @@ class _FormBuilderState extends State<FormBuilder> {
                             size: 70,
                           ),
                         ),
-                        e.answer != null
+                        questions.answer != null
                             ? CircleAvatar(
                                 backgroundColor: Colors.green,
                                 radius: 15,
@@ -538,8 +499,8 @@ class _FormBuilderState extends State<FormBuilder> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () =>
-                        fileUpload((files) => setState(() => e.answer = files)),
+                    onPressed: () => fileUpload(
+                        (files) => setState(() => questions.answer = files)),
                     child: Text(
                       "Upload",
                       style: TextStyle(
@@ -551,7 +512,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ],
               ),
             ),
-            remarkWidget(e, remarks, widget.remarkImage),
+            remarkWidget(questions, remarks, widget.remarkImage),
           ],
         );
 
@@ -570,10 +531,10 @@ class _FormBuilderState extends State<FormBuilder> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(e) + 1}. " : ""}${e.title}"),
+                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
                   ),
                   DescriptionWidget(
-                    questions: e,
+                    questions: questions,
                     textStyle: widget.descriptionTextDecoration,
                   ),
                 ],
@@ -597,11 +558,11 @@ class _FormBuilderState extends State<FormBuilder> {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextField(
-                      maxLines: e.maxline,
+                      maxLines: questions.maxline,
                       onChanged: (value) {
                         // e.answer = value;
                         setState(() {
-                          e.answer = value;
+                          questions.answer = value;
                         });
                       },
                       style: TextStyle(
@@ -619,7 +580,7 @@ class _FormBuilderState extends State<FormBuilder> {
                 ),
               ),
             ),
-            remarkWidget(e, remarks, widget.remarkImage),
+            remarkWidget(questions, remarks, widget.remarkImage),
           ],
         );
 
