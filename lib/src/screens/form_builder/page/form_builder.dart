@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_checkbox.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_date.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_datetime.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_multiple.dart';
@@ -222,76 +223,16 @@ class _FormBuilderState extends State<FormBuilder> {
         );
 
       case "date":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.showIcon
-                      ? iconContainer(widget.dateImage)
-                      : Container(),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
-                  ),
-                  DescriptionWidget(
-                    questions: questions,
-                    textStyle: widget.descriptionTextDecoration,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                children: <Widget>[
-                  Theme(
-                    data: ThemeData(),
-                    child: Builder(
-                      builder: (context) => CustomDropdown(
-                        onChanged: (val) {
-                          print(val);
-                        },
-                        onTap: () async {
-                          DateTime tempDate = await selectDate(context);
-
-                          if (questions.answer == null) {
-                            setState(() {
-                              questions.answer = tempDate;
-                            });
-                          } else {
-                            setState(() {
-                              questions.answer = DateTime(
-                                tempDate.year,
-                                tempDate.month,
-                                tempDate.day,
-                                questions.answer.hour,
-                                questions.answer.minute,
-                              );
-                            });
-                          }
-                        },
-                        title: questions.answer == null
-                            ? "DD-MM-YYYY"
-                            : dateFormater.format(questions.answer),
-                        // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
-                        showImage: false,
-                        isRequired: false,
-                        width: screenWidth(context: context, mulBy: 0.4),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            remarkWidget(questions, remarks, widget.remarkImage),
-          ],
+        return SimpleDate(
+          questions: questions,
+          checklistModel: checklistModel,
+          showIndex: widget.showIndex,
+          dateImage: widget.dateImage,
+          remarkImage: widget.remarkImage,
+          index: widget.index,
+          showIcon: remarks,
+          descriptionTextDecoration: widget.descriptionTextDecoration,
         );
-
       case "file":
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
