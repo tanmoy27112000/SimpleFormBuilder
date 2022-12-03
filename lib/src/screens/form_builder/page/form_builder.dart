@@ -8,6 +8,7 @@ import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_chec
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_datetime.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_dropdown.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_multiple.dart';
+import 'package:simple_form_builder/src/screens/form_builder/widgets/simple_time.dart';
 
 import 'package:simple_form_builder/src/shared/constant.dart';
 import 'package:simple_form_builder/src/screens/form_builder/widgets/custom_dropdown.dart';
@@ -209,75 +210,15 @@ class _FormBuilderState extends State<FormBuilder> {
           descriptionTextDecoration: widget.descriptionTextDecoration,
         );
       case "time":
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.showIcon
-                      ? iconContainer(widget.dateImage)
-                      : Container(),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Text(
-                        "${widget.showIndex ? "${checklistModel!.data![widget.index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
-                  ),
-                  DescriptionWidget(
-                    questions: questions,
-                    textStyle: widget.descriptionTextDecoration,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                children: <Widget>[
-                  CustomDropdown(
-                    onChanged: (val) {},
-                    onTap: () async {
-                      TimeOfDay tempTime = await selectTime(context);
-
-                      if (questions.answer == null) {
-                        setState(() {
-                          questions.answer = DateTime(
-                            DateTime.now().year,
-                            DateTime.now().month,
-                            DateTime.now().day,
-                            tempTime.hour,
-                            tempTime.minute,
-                          );
-                        });
-                      } else {
-                        setState(() {
-                          questions.answer = DateTime(
-                            questions.answer.year,
-                            questions.answer.month,
-                            questions.answer.day,
-                            tempTime.hour,
-                            tempTime.minute,
-                          );
-                        });
-                      }
-
-                      // reminderController.updateIschanged(true);
-                    },
-                    title: questions.answer != null
-                        ? formatTimeOfDay(
-                            TimeOfDay.fromDateTime(questions.answer))
-                        : "Hr:Mins",
-                    showImage: false,
-                    isRequired: false,
-                    width: screenWidth(context: context, mulBy: 0.3),
-                  ),
-                ],
-              ),
-            ),
-            remarkWidget(questions, remarks, widget.remarkImage),
-          ],
+        return SimpleTime(
+          questions: questions,
+          checklistModel: checklistModel,
+          showIndex: widget.showIndex,
+          dateImage: widget.dateImage,
+          remarkImage: widget.remarkImage,
+          index: widget.index,
+          showIcon: remarks,
+          descriptionTextDecoration: widget.descriptionTextDecoration,
         );
 
       case "date":
