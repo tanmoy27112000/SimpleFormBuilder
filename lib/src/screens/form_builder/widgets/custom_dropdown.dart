@@ -126,17 +126,3 @@ class CustomDropdown extends StatelessWidget {
     );
   }
 }
-
-// Row customDropdownWidget({
-//   BuildContext? context,
-//   bool showImage = true,
-//   @required Function? onChanged,
-//   @required String? title,
-//   bool isRequired = true,
-//   List? droplist,
-//   double? width,
-//   String? dropVal,
-//   Function? onTap,
-// }) {
-//   return 
-// }

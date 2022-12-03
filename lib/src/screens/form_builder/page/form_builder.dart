@@ -159,13 +159,13 @@ class _FormBuilderState extends State<FormBuilder> {
 
   Widget questionWidget(
     Questions e,
-    remarks,
+    bool remarks,
   ) {
     switch (e.type) {
       case "multiple":
         return SimpleMultiple(
           questions: e,
-          showIcon: widget.showIcon,
+          showIcon: remarks,
           showIndex: widget.showIndex,
           index: widget.index,
           title: widget.title,
@@ -177,10 +177,10 @@ class _FormBuilderState extends State<FormBuilder> {
       case "dropdown":
         return SimpleDropdown(
           questions: e,
+          showIcon: remarks,
           showIndex: widget.showIndex,
           remarkImage: widget.remarkImage,
           index: widget.index,
-          showIcon: widget.showIcon,
           checklistModel: checklistModel,
           dropdownImage: widget.dropdownImage,
           descriptionTextDecoration: widget.descriptionTextDecoration,
