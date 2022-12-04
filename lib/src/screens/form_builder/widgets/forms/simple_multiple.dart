@@ -74,7 +74,7 @@ class _SimpleMultipleState extends State<_SimpleMultiple> {
                         fontSize: 15),
                   ),
                   onChanged: (value) {
-                    provider.setAnswers(widget.questions, value, widget.index);
+                    provider.setAnswer(widget.questions, value, widget.index);
                   },
                 ),
               )
@@ -85,7 +85,7 @@ class _SimpleMultipleState extends State<_SimpleMultiple> {
           remark: widget.showIcon,
           icon: widget.remarkImage,
           onChanged: (value) {
-            provider.setRemarks(widget.questions, value, widget.index);
+            provider.setRemark(widget.questions, value, widget.index);
           },
         ),
       ],

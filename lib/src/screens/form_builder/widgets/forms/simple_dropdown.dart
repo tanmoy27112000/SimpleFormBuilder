@@ -29,6 +29,8 @@ class _SimpleDropdown extends StatefulWidget {
 class _SimpleDropdownState extends State<_SimpleDropdown> {
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<FormBuilderProvider>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -93,9 +95,7 @@ class _SimpleDropdownState extends State<_SimpleDropdown> {
                   },
                 ).toList(),
                 onChanged: (value) {
-                  setState(() {
-                    widget.questions.answer = value;
-                  });
+                  provider.setAnswer(widget.questions, value, widget.index);
                 },
               ),
             ),
@@ -106,8 +106,7 @@ class _SimpleDropdownState extends State<_SimpleDropdown> {
           remark: widget.showIcon,
           icon: widget.remarkImage,
           onChanged: (value) {
-            widget.questions.remarkData = value;
-            setState(() {});
+            provider.setRemark(widget.questions, value, widget.index);
           },
         )
       ],

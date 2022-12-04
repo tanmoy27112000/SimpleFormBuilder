@@ -9,7 +9,7 @@ class FormBuilderProvider extends ChangeNotifier {
     checklistModel = ChecklistModel.fromJson(initial);
   }
 
-  void setAnswers(Questions questions, Object? value, int index) {
+  void setAnswer(Questions questions, Object? value, int index) {
     final idx = checklistModel?.data?[index].questions?.indexOf(questions);
     final question = checklistModel?.data?[index].questions?[idx!];
     question?.answer = value;
@@ -17,7 +17,7 @@ class FormBuilderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setRemarks(Questions questions, String? value, int index) {
+  void setRemark(Questions questions, String? value, int index) {
     final idx = checklistModel?.data?[index].questions?.indexOf(questions);
     final question = checklistModel?.data?[index].questions?[idx!];
     question?.remarkData = value;
