@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:simple_form_builder/formbuilder.dart';
-import 'package:simple_form_builder/global/checklistModel.dart';
-import 'package:simple_form_builder/global/constant.dart';
+import 'package:simple_form_builder/form_builder.dart';
+import 'package:simple_form_builder/src/shared/checklistModel.dart';
+import 'package:simple_form_builder/src/shared/constant.dart';
 
 void main() => runApp(MyApp());
 
