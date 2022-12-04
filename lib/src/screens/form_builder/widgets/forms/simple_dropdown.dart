@@ -87,7 +87,11 @@ class _SimpleDropdown extends StatelessWidget {
                       },
                     ).toList(),
                     onChanged: (input) {
-                      value.setAnswer(questions, input, index);
+                      value.setAnswer(
+                        questions: questions,
+                        value: input,
+                        index: index,
+                      );
                     },
                   );
                 }),

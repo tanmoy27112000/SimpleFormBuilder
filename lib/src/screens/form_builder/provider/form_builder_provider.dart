@@ -9,7 +9,8 @@ class FormBuilderProvider extends ChangeNotifier {
     checklistModel = ChecklistModel.fromJson(initial);
   }
 
-  void setAnswer(Questions questions, Object? value, int index) {
+  void setAnswer(
+      {required Questions questions, Object? value, required int index}) {
     final idx = checklistModel?.data?[index].questions?.indexOf(questions);
     final question = checklistModel?.data?[index].questions?[idx!];
     question?.answer = value;
@@ -27,7 +28,7 @@ class FormBuilderProvider extends ChangeNotifier {
 
   void setCheckboxAnswers({
     required Questions questions,
-    required bool? input,
+    bool? input,
     required String checked,
     required int index,
   }) {

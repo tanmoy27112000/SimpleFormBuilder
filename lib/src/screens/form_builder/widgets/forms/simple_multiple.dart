@@ -67,7 +67,11 @@ class _SimpleMultiple extends StatelessWidget {
                             fontSize: 15),
                       ),
                       onChanged: (input) {
-                        value.setAnswer(questions, input, index);
+                        value.setAnswer(
+                          questions: questions,
+                          value: input,
+                          index: index,
+                        );
                       },
                     );
                   },
