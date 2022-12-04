@@ -1,6 +1,6 @@
 part of 'question_widget.dart';
 
-class _SimpleDateTime extends StatefulWidget {
+class _SimpleDateTime extends StatelessWidget {
   const _SimpleDateTime({
     Key? key,
     required this.questions,
@@ -23,12 +23,8 @@ class _SimpleDateTime extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<_SimpleDateTime> createState() => _SimpleDateTimeState();
-}
-
-class _SimpleDateTimeState extends State<_SimpleDateTime> {
-  @override
   Widget build(BuildContext context) {
+    print("object");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -37,17 +33,15 @@ class _SimpleDateTimeState extends State<_SimpleDateTime> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.showIcon
-                  ? IconContainer(icon: widget.dateImage)
-                  : Container(),
+              showIcon ? IconContainer(icon: dateImage) : Container(),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Text(
-                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
+                    "${showIndex ? "${checklistModel!.data![index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
               ),
               DescriptionWidget(
-                questions: widget.questions,
-                textStyle: widget.descriptionTextDecoration,
+                questions: questions,
+                textStyle: descriptionTextDecoration,
               ),
             ],
           ),
@@ -59,88 +53,107 @@ class _SimpleDateTimeState extends State<_SimpleDateTime> {
               Theme(
                 data: ThemeData(),
                 child: Builder(
-                  builder: (context) => CustomDropdown(
-                    onChanged: (val) {
-                      print(val);
-                    },
-                    onTap: () async {
-                      DateTime tempDate = await selectDate(context);
+                  builder: (context) => Consumer<FormBuilderProvider>(
+                    builder: (context, value, child) {
+                      return CustomDropdown(
+                        onChanged: (val) {
+                          print(val);
+                        },
+                        onTap: () async {
+                          DateTime tempDate = await selectDate(context);
 
-                      if (widget.questions.answer == null) {
-                        setState(() {
-                          widget.questions.answer = tempDate;
-                        });
-                      } else {
-                        setState(() {
-                          widget.questions.answer = DateTime(
-                            tempDate.year,
-                            tempDate.month,
-                            tempDate.day,
-                            widget.questions.answer.hour,
-                            widget.questions.answer.minute,
-                          );
-                        });
-                      }
+                          if (questions.answer == null) {
+                            value.setAnswer(
+                              questions: questions,
+                              value: tempDate,
+                              index: index,
+                            );
+                          } else {
+                            value.setAnswer(
+                              questions: questions,
+                              value: DateTime(
+                                tempDate.year,
+                                tempDate.month,
+                                tempDate.day,
+                                questions.answer.hour,
+                                questions.answer.minute,
+                              ),
+                              index: index,
+                            );
+                          }
+                        },
+                        title: questions.answer == null
+                            ? "DD-MM-YYYY"
+                            : dateFormater.format(questions.answer),
+                        // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
+                        showImage: false,
+                        isRequired: false,
+                        width: screenWidth(context: context, mulBy: 0.4),
+                      );
                     },
-                    title: widget.questions.answer == null
-                        ? "DD-MM-YYYY"
-                        : dateFormater.format(widget.questions.answer),
-                    // date != null ? dateFormater.format(date) : "DD-MM-YYYY",
-                    showImage: false,
-                    isRequired: false,
-                    width: screenWidth(context: context, mulBy: 0.4),
                   ),
                 ),
               ),
-              CustomDropdown(
-                onChanged: (val) {},
-                onTap: () async {
-                  TimeOfDay tempTime = await selectTime(context);
+              Consumer<FormBuilderProvider>(
+                builder: (context, value, child) {
+                  return CustomDropdown(
+                    onChanged: (val) {},
+                    onTap: () async {
+                      TimeOfDay tempTime = await selectTime(context);
 
-                  if (widget.questions.answer == null) {
-                    setState(() {
-                      widget.questions.answer = DateTime(
-                        DateTime.now().year,
-                        DateTime.now().month,
-                        DateTime.now().day,
-                        tempTime.hour,
-                        tempTime.minute,
-                      );
-                    });
-                  } else {
-                    setState(() {
-                      widget.questions.answer = DateTime(
-                        widget.questions.answer.year,
-                        widget.questions.answer.month,
-                        widget.questions.answer.day,
-                        tempTime.hour,
-                        tempTime.minute,
-                      );
-                    });
-                  }
+                      if (questions.answer == null) {
+                        value.setAnswer(
+                          questions: questions,
+                          value: DateTime(
+                            DateTime.now().year,
+                            DateTime.now().month,
+                            DateTime.now().day,
+                            tempTime.hour,
+                            tempTime.minute,
+                          ),
+                          index: index,
+                        );
+                      } else {
+                        value.setAnswer(
+                          questions: questions,
+                          value: DateTime(
+                            questions.answer.year,
+                            questions.answer.month,
+                            questions.answer.day,
+                            tempTime.hour,
+                            tempTime.minute,
+                          ),
+                          index: index,
+                        );
+                      }
 
-                  // reminderController.updateIschanged(true);
+                      // reminderController.updateIschanged(true);
+                    },
+                    title: questions.answer != null
+                        ? formatTimeOfDay(
+                            TimeOfDay.fromDateTime(questions.answer))
+                        : "Hr:Mins",
+                    showImage: false,
+                    isRequired: false,
+                    width: screenWidth(context: context, mulBy: 0.3),
+                  );
                 },
-                title: widget.questions.answer != null
-                    ? formatTimeOfDay(
-                        TimeOfDay.fromDateTime(widget.questions.answer))
-                    : "Hr:Mins",
-                showImage: false,
-                isRequired: false,
-                width: screenWidth(context: context, mulBy: 0.3),
               ),
             ],
           ),
         ),
-        _RemarkWidget(
-          questions: widget.questions,
-          remark: widget.showIcon,
-          icon: widget.remarkImage,
-          onChanged: (value) {
-            widget.questions.remarkData = value;
-            setState(() {});
+        Consumer<FormBuilderProvider>(
+          builder: (context, value, child) {
+            return _RemarkWidget(
+              questions: questions,
+              remark: showIcon,
+              icon: remarkImage,
+              onChanged: (input) {
+                value.setRemark(questions, input, index);
+              },
+            );
           },
-        ),
+        )
       ],
     );
   }
