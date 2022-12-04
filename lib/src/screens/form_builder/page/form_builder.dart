@@ -73,7 +73,7 @@ class _FormBuilderState extends State<FormBuilder> {
       create: (_) => FormBuilderProvider(initial: widget.initialData),
       builder: (context, child) {
         final checklistModel =
-            context.watch<FormBuilderProvider>().checklistModel;
+            context.read<FormBuilderProvider>().checklistModel;
 
         return Container(
           child: SingleChildScrollView(

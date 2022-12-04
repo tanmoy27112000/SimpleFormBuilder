@@ -1,6 +1,6 @@
 part of 'question_widget.dart';
 
-class _SimpleMultiple extends StatefulWidget {
+class _SimpleMultiple extends StatelessWidget {
   const _SimpleMultiple({
     Key? key,
     required this.questions,
@@ -25,14 +25,8 @@ class _SimpleMultiple extends StatefulWidget {
   final String? remarkImage;
 
   @override
-  State<_SimpleMultiple> createState() => _SimpleMultipleState();
-}
-
-class _SimpleMultipleState extends State<_SimpleMultiple> {
-  @override
   Widget build(BuildContext context) {
-    final provider = context.read<FormBuilderProvider>();
-
+    print("watching...");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -41,52 +35,58 @@ class _SimpleMultipleState extends State<_SimpleMultiple> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.showIcon
-                  ? IconContainer(icon: widget.multipleimage)
-                  : Container(),
+              showIcon ? IconContainer(icon: multipleimage) : Container(),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Text(
-                  "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}",
-                  style: widget.titleTextDecoration ?? TextStyle(),
+                  "${showIndex ? "${checklistModel!.data![index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}",
+                  style: titleTextDecoration ?? TextStyle(),
                 ),
               ),
               DescriptionWidget(
-                questions: widget.questions,
-                textStyle: widget.descriptionTextDecoration,
+                questions: questions,
+                textStyle: descriptionTextDecoration,
               ),
             ],
           ),
         ),
         Column(
-          children: widget.questions.fields!
+          children: questions.fields!
               .map(
-                (val) => RadioListTile(
-                  value: val,
-                  groupValue: widget.questions.answer,
-                  title: Text(
-                    val,
-                    style: TextStyle(
-                        color: widget.questions.answer != val
-                            ? Colors.grey
-                            : Colors.black,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 15),
-                  ),
-                  onChanged: (value) {
-                    provider.setAnswer(widget.questions, value, widget.index);
+                (val) => Consumer<FormBuilderProvider>(
+                  builder: (context, value, child) {
+                    return RadioListTile(
+                      value: val,
+                      groupValue: questions.answer,
+                      title: Text(
+                        val,
+                        style: TextStyle(
+                            color: questions.answer != val
+                                ? Colors.grey
+                                : Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15),
+                      ),
+                      onChanged: (input) {
+                        value.setAnswer(questions, input, index);
+                      },
+                    );
                   },
                 ),
               )
               .toList(),
         ),
-        _RemarkWidget(
-          questions: widget.questions,
-          remark: widget.showIcon,
-          icon: widget.remarkImage,
-          onChanged: (value) {
-            provider.setRemark(widget.questions, value, widget.index);
-          },
+        Consumer<FormBuilderProvider>(
+          builder: ((context, value, child) {
+            return _RemarkWidget(
+              questions: questions,
+              remark: showIcon,
+              icon: remarkImage,
+              onChanged: (input) {
+                value.setRemark(questions, input, index);
+              },
+            );
+          }),
         ),
       ],
     );

@@ -1,6 +1,6 @@
 part of 'question_widget.dart';
 
-class _SimpleDropdown extends StatefulWidget {
+class _SimpleDropdown extends StatelessWidget {
   _SimpleDropdown({
     Key? key,
     required this.questions,
@@ -23,13 +23,8 @@ class _SimpleDropdown extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<_SimpleDropdown> createState() => _SimpleDropdownState();
-}
-
-class _SimpleDropdownState extends State<_SimpleDropdown> {
-  @override
   Widget build(BuildContext context) {
-    final provider = context.read<FormBuilderProvider>();
+    print("Does it reprint?");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,17 +34,15 @@ class _SimpleDropdownState extends State<_SimpleDropdown> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.showIcon
-                  ? IconContainer(icon: widget.dropdownImage)
-                  : Container(),
+              showIcon ? IconContainer(icon: dropdownImage) : Container(),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Text(
-                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
+                    "${showIndex ? "${checklistModel!.data![index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
               ),
               DescriptionWidget(
-                questions: widget.questions,
-                textStyle: widget.descriptionTextDecoration,
+                questions: questions,
+                textStyle: descriptionTextDecoration,
               ),
             ],
           ),
@@ -65,48 +58,55 @@ class _SimpleDropdownState extends State<_SimpleDropdown> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
-                color:
-                    widget.questions.answer != null ? Colors.blue : Colors.grey,
+                color: questions.answer != null ? Colors.blue : Colors.grey,
               ),
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: DropdownButton(
-                underline: SizedBox(),
-                hint: widget.questions.answer == null
-                    ? Text('Select option')
-                    : Text(
-                        widget.questions.answer,
-                        style: TextStyle(
-                          color: widget.questions.answer != null
-                              ? Colors.blue
-                              : Colors.grey,
-                        ),
-                      ),
-                isExpanded: true,
-                iconSize: 30.0,
-                style: TextStyle(color: Colors.grey),
-                items: widget.questions.fields!.map(
-                  (val) {
-                    return DropdownMenuItem<String>(
-                      value: val,
-                      child: Text(val),
-                    );
-                  },
-                ).toList(),
-                onChanged: (value) {
-                  provider.setAnswer(widget.questions, value, widget.index);
-                },
+              child: Consumer<FormBuilderProvider>(
+                builder: ((context, value, child) {
+                  return DropdownButton(
+                    underline: SizedBox(),
+                    hint: questions.answer == null
+                        ? Text('Select option')
+                        : Text(
+                            questions.answer,
+                            style: TextStyle(
+                              color: questions.answer != null
+                                  ? Colors.blue
+                                  : Colors.grey,
+                            ),
+                          ),
+                    isExpanded: true,
+                    iconSize: 30.0,
+                    style: TextStyle(color: Colors.grey),
+                    items: questions.fields!.map(
+                      (val) {
+                        return DropdownMenuItem<String>(
+                          value: val,
+                          child: Text(val),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (input) {
+                      value.setAnswer(questions, input, index);
+                    },
+                  );
+                }),
               ),
             ),
           ),
         ),
-        _RemarkWidget(
-          questions: widget.questions,
-          remark: widget.showIcon,
-          icon: widget.remarkImage,
-          onChanged: (value) {
-            provider.setRemark(widget.questions, value, widget.index);
+        Consumer<FormBuilderProvider>(
+          builder: (context, value, child) {
+            return _RemarkWidget(
+              questions: questions,
+              remark: showIcon,
+              icon: remarkImage,
+              onChanged: (input) {
+                value.setRemark(questions, input, index);
+              },
+            );
           },
         )
       ],
