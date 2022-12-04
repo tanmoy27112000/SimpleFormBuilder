@@ -24,7 +24,6 @@ class _SimpleDateTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("object");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
