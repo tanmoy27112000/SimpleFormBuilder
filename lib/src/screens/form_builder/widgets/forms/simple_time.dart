@@ -1,6 +1,6 @@
 part of 'question_widget.dart';
 
-class _SimpleTime extends StatefulWidget {
+class _SimpleTime extends StatelessWidget {
   const _SimpleTime({
     Key? key,
     required this.questions,
@@ -23,11 +23,6 @@ class _SimpleTime extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<_SimpleTime> createState() => _SimpleTimeState();
-}
-
-class _SimpleTimeState extends State<_SimpleTime> {
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,17 +32,15 @@ class _SimpleTimeState extends State<_SimpleTime> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.showIcon
-                  ? IconContainer(icon: widget.dateImage)
-                  : Container(),
+              showIcon ? IconContainer(icon: dateImage) : Container(),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Text(
-                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
+                    "${showIndex ? "${checklistModel!.data![index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
               ),
               DescriptionWidget(
-                questions: widget.questions,
-                textStyle: widget.descriptionTextDecoration,
+                questions: questions,
+                textStyle: descriptionTextDecoration,
               ),
             ],
           ),
@@ -56,54 +49,64 @@ class _SimpleTimeState extends State<_SimpleTime> {
           padding: const EdgeInsets.only(left: 16.0),
           child: Row(
             children: <Widget>[
-              CustomDropdown(
-                onChanged: (val) {},
-                onTap: () async {
-                  TimeOfDay tempTime = await selectTime(context);
+              Consumer<FormBuilderProvider>(
+                builder: (context, value, child) {
+                  return CustomDropdown(
+                    onChanged: (val) {},
+                    onTap: () async {
+                      TimeOfDay tempTime = await selectTime(context);
 
-                  if (widget.questions.answer == null) {
-                    setState(() {
-                      widget.questions.answer = DateTime(
-                        DateTime.now().year,
-                        DateTime.now().month,
-                        DateTime.now().day,
-                        tempTime.hour,
-                        tempTime.minute,
-                      );
-                    });
-                  } else {
-                    setState(() {
-                      widget.questions.answer = DateTime(
-                        widget.questions.answer.year,
-                        widget.questions.answer.month,
-                        widget.questions.answer.day,
-                        tempTime.hour,
-                        tempTime.minute,
-                      );
-                    });
-                  }
-
-                  // reminderController.updateIschanged(true);
+                      if (questions.answer == null) {
+                        value.setAnswer(
+                          questions: questions,
+                          value: DateTime(
+                            DateTime.now().year,
+                            DateTime.now().month,
+                            DateTime.now().day,
+                            tempTime.hour,
+                            tempTime.minute,
+                          ),
+                          index: index,
+                        );
+                      } else {
+                        value.setAnswer(
+                          questions: questions,
+                          value: DateTime(
+                            questions.answer.year,
+                            questions.answer.month,
+                            questions.answer.day,
+                            tempTime.hour,
+                            tempTime.minute,
+                          ),
+                          index: index,
+                        );
+                      }
+                      // reminderController.updateIschanged(true);
+                    },
+                    title: questions.answer != null
+                        ? formatTimeOfDay(
+                            TimeOfDay.fromDateTime(questions.answer))
+                        : "Hr:Mins",
+                    showImage: false,
+                    isRequired: false,
+                    width: screenWidth(context: context, mulBy: 0.3),
+                  );
                 },
-                title: widget.questions.answer != null
-                    ? formatTimeOfDay(
-                        TimeOfDay.fromDateTime(widget.questions.answer))
-                    : "Hr:Mins",
-                showImage: false,
-                isRequired: false,
-                width: screenWidth(context: context, mulBy: 0.3),
               ),
             ],
           ),
         ),
-        _RemarkWidget(
-          questions: widget.questions,
-          remark: widget.showIcon,
-          icon: widget.remarkImage,
-          onChanged: (value) {
-            widget.questions.remarkData = value;
-            setState(() {});
-          },
+        Consumer<FormBuilderProvider>(
+          builder: ((context, value, child) {
+            return _RemarkWidget(
+              questions: questions,
+              remark: showIcon,
+              icon: remarkImage,
+              onChanged: (input) {
+                value.setRemark(questions, input, index);
+              },
+            );
+          }),
         ),
       ],
     );
