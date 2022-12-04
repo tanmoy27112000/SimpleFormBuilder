@@ -26,7 +26,6 @@ class _SimpleMultiple extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("watching...");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

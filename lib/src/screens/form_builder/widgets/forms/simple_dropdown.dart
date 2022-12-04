@@ -24,8 +24,6 @@ class _SimpleDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Does it reprint?");
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

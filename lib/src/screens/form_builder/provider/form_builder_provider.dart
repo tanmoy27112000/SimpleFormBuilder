@@ -24,4 +24,17 @@ class FormBuilderProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void setCheckboxAnswers({
+    required Questions questions,
+    required bool? input,
+    required String checked,
+    required int index,
+  }) {
+    final idx = checklistModel?.data?[index].questions?.indexOf(questions);
+    final question = checklistModel?.data?[index].questions?[idx!];
+    question?.answer[questions.fields!.indexOf(checked)] = input;
+
+    notifyListeners();
+  }
 }

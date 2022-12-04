@@ -1,6 +1,6 @@
 part of 'question_widget.dart';
 
-class _SimpleCheckbox extends StatefulWidget {
+class _SimpleCheckbox extends StatelessWidget {
   const _SimpleCheckbox({
     Key? key,
     required this.questions,
@@ -23,11 +23,6 @@ class _SimpleCheckbox extends StatefulWidget {
   final TextStyle? descriptionTextDecoration;
 
   @override
-  State<_SimpleCheckbox> createState() => _SimpleCheckboxState();
-}
-
-class _SimpleCheckboxState extends State<_SimpleCheckbox> {
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,56 +32,64 @@ class _SimpleCheckboxState extends State<_SimpleCheckbox> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.showIcon
-                  ? IconContainer(icon: widget.checkboxImage)
-                  : Container(),
+              showIcon ? IconContainer(icon: checkboxImage) : Container(),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Text(
-                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
+                    "${showIndex ? "${checklistModel!.data![index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
               ),
               DescriptionWidget(
-                questions: widget.questions,
-                textStyle: widget.descriptionTextDecoration,
+                questions: questions,
+                textStyle: descriptionTextDecoration,
               ),
             ],
           ),
         ),
         Column(
-          children: widget.questions.fields!
+          children: questions.fields!
               .map(
-                (val) => CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  dense: true,
-                  title: Text(
-                    val,
-                    style: TextStyle(
-                        color: widget.questions.answer[
-                                    widget.questions.fields!.indexOf(val)] !=
-                                true
-                            ? Colors.grey
-                            : Colors.black,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 15),
-                  ),
-                  value: widget
-                      .questions.answer[widget.questions.fields!.indexOf(val)],
-                  onChanged: (value) {
-                    widget.questions
-                        .answer[widget.questions.fields!.indexOf(val)] = value;
-                    setState(() {});
+                (checked) => Consumer<FormBuilderProvider>(
+                  builder: (context, value, child) {
+                    return CheckboxListTile(
+                      controlAffinity: ListTileControlAffinity.leading,
+                      dense: true,
+                      title: Text(
+                        checked,
+                        style: TextStyle(
+                            color: questions.answer[
+                                        questions.fields!.indexOf(checked)] !=
+                                    true
+                                ? Colors.grey
+                                : Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15),
+                      ),
+                      value:
+                          questions.answer[questions.fields!.indexOf(checked)],
+                      onChanged: (input) {
+                        value.setCheckboxAnswers(
+                          questions: questions,
+                          input: input,
+                          checked: checked,
+                          index: index,
+                        );
+                      },
+                    );
                   },
                 ),
               )
               .toList(),
         ),
-        _RemarkWidget(
-          questions: widget.questions,
-          remark: widget.showIcon,
-          icon: widget.remarkImage,
-          onChanged: (value) {
-            widget.questions.remarkData = value;
-            setState(() {});
+        Consumer<FormBuilderProvider>(
+          builder: (context, value, child) {
+            return _RemarkWidget(
+              questions: questions,
+              remark: showIcon,
+              icon: remarkImage,
+              onChanged: (input) {
+                value.setRemark(questions, input, index);
+              },
+            );
           },
         ),
       ],
