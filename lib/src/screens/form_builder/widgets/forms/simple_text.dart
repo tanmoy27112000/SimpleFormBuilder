@@ -1,6 +1,6 @@
 part of 'question_widget.dart';
 
-class _SimpleText extends StatefulWidget {
+class _SimpleText extends StatelessWidget {
   const _SimpleText({
     Key? key,
     required this.questions,
@@ -27,11 +27,6 @@ class _SimpleText extends StatefulWidget {
   final InputDecoration? textfieldDecoration;
 
   @override
-  State<_SimpleText> createState() => _SimpleTextState();
-}
-
-class _SimpleTextState extends State<_SimpleText> {
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,17 +36,15 @@ class _SimpleTextState extends State<_SimpleText> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.showIcon
-                  ? IconContainer(icon: widget.textImage)
-                  : Container(),
+              showIcon ? IconContainer(icon: textImage) : Container(),
               Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Text(
-                    "${widget.showIndex ? "${widget.checklistModel!.data![widget.index].questions!.indexOf(widget.questions) + 1}. " : ""}${widget.questions.title}"),
+                    "${showIndex ? "${checklistModel!.data![index].questions!.indexOf(questions) + 1}. " : ""}${questions.title}"),
               ),
               DescriptionWidget(
-                questions: widget.questions,
-                textStyle: widget.descriptionTextDecoration,
+                questions: questions,
+                textStyle: descriptionTextDecoration,
               ),
             ],
           ),
@@ -64,46 +57,52 @@ class _SimpleTextState extends State<_SimpleText> {
           child: Container(
             width: screenWidth(
                 context: context,
-                mulBy: widget.textFieldWidth == null
-                    ? 0.9
-                    : widget.textFieldWidth),
+                mulBy: textFieldWidth == null ? 0.9 : textFieldWidth),
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(5)),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: TextField(
-                  maxLines: widget.questions.maxline,
-                  onChanged: (value) {
-                    // e.answer = value;
-                    setState(() {
-                      widget.questions.answer = value;
-                    });
-                  },
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  decoration: widget.textfieldDecoration ??
-                      InputDecoration.collapsed(
-                        hintText: "Enter text here",
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.normal,
-                        ),
+                child: Consumer<FormBuilderProvider>(
+                  builder: (context, value, child) {
+                    return TextField(
+                      maxLines: questions.maxline,
+                      onChanged: (input) {
+                        value.setAnswer(
+                          questions: questions,
+                          value: input,
+                          index: index,
+                        );
+                      },
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
+                      decoration: textfieldDecoration ??
+                          InputDecoration.collapsed(
+                            hintText: "Enter text here",
+                            hintStyle: TextStyle(
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                    );
+                  },
                 ),
               ),
             ),
           ),
         ),
-        _RemarkWidget(
-          questions: widget.questions,
-          remark: widget.showIcon,
-          icon: widget.remarkImage,
-          onChanged: (value) {
-            widget.questions.remarkData = value;
-            setState(() {});
-          },
+        Consumer<FormBuilderProvider>(
+          builder: ((context, value, child) {
+            return _RemarkWidget(
+              questions: questions,
+              remark: showIcon,
+              icon: remarkImage,
+              onChanged: (input) {
+                value.setRemark(questions, input, index);
+              },
+            );
+          }),
         ),
       ],
     );
